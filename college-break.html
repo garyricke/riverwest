@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Break Pass — $229/Year · River West Family Fitness</title>
+<meta name="description" content="A discounted year-round gym membership for college students who go away to school and need a real fitness community during breaks. $229 covers the whole year.">
+<meta property="og:title" content="College Break Pass — $229/year · River West Family Fitness">
+<meta property="og:description" content="One payment. Every break covered. Home from school? The gym never left.">
+<meta property="og:image" content="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1200/riverwest/student-promo/rw-student-break-hero">
+<link rel="icon" type="image/svg+xml" href="logos/riverwest-icon-square-black.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --iron:  #1A1A1B;
+    --iron2: #111112;
+    --gold:  #C5A059;
+    --gold2: #b08f47;
+    --slate: #E5E5E5;
+    --white: #FFFFFF;
+    --ff-display: 'Bebas Neue', sans-serif;
+    --ff-head:    'Montserrat', sans-serif;
+    --ff-body:    'Inter', sans-serif;
+    --max: 1200px;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--iron);
+    color: var(--slate);
+    font-family: var(--ff-body);
+    font-size: 17px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { cursor: pointer; border: none; background: none; }
+
+  .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 3rem); }
+  .section { padding: clamp(4.5rem, 9vw, 8rem) 0; }
+  .section-dark-alt { background: var(--iron2); }
+  .text-center { text-align: center; }
+
+  .section-label {
+    font-family: var(--ff-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: var(--ff-display);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.01em;
+  }
+
+  /* ─── NAV ─────────────────────────────────────────────── */
+  #nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem clamp(1.25rem, 5vw, 3rem);
+    transition: background 0.3s ease, padding 0.3s ease;
+  }
+  #nav.scrolled {
+    background: var(--iron);
+    padding-top: 0.9rem; padding-bottom: 0.9rem;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: var(--max); margin: 0 auto;
+  }
+  .nav-logo img { height: 30px; width: auto; }
+  .nav-phone {
+    font-family: var(--ff-head);
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+  .nav-phone:hover { color: var(--white); }
+  .nav-back {
+    font-family: var(--ff-head);
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(229,229,229,0.6);
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--gold); }
+
+  /* ─── HERO ────────────────────────────────────────────── */
+  #hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex; align-items: flex-end;
+    overflow: hidden;
+    background: var(--iron);
+  }
+  /* Full-bleed photo. Head is pinned to the top edge of the crop,
+     so we anchor `center top` and let the body extend through frame.
+     The bottom gradient gives the headline a dark ledge to sit on. */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(26,26,27,0) 35%, rgba(26,26,27,0.55) 62%, rgba(26,26,27,0.95) 100%),
+      url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/student-promo/rw-student-break-hero') center top/cover no-repeat;
+  }
+  .hero-content {
+    position: relative;
+    width: 100%;
+    padding: 0 clamp(1.25rem, 5vw, 3rem) clamp(4rem, 8vw, 6rem);
+    max-width: calc(var(--max) + clamp(2.5rem, 10vw, 6rem));
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: var(--ff-head);
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.25rem;
+  }
+  .hero-headline {
+    font-family: var(--ff-display);
+    font-size: clamp(3.8rem, 10vw, 8.5rem);
+    line-height: 0.94;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+  }
+  .hero-headline em { font-style: normal; color: var(--gold); }
+  .hero-sub {
+    font-family: var(--ff-head);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-weight: 600;
+    color: var(--slate);
+    max-width: 540px;
+    margin-bottom: clamp(2rem, 4vw, 2.75rem);
+    line-height: 1.5;
+  }
+  .hero-cta-row {
+    display: flex; flex-wrap: wrap; gap: 1rem 1.25rem;
+    align-items: center;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 1.1rem 1.75rem;
+    background: var(--gold);
+    color: var(--iron);
+    font-family: var(--ff-head);
+    font-size: 0.82rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--white); transform: translateX(2px); }
+  .btn-secondary {
+    font-family: var(--ff-display);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--gold);
+    letter-spacing: 0.04em; line-height: 1;
+    transition: color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--white); }
+
+  /* ─── DEAL BAR ────────────────────────────────────────── */
+  #deal {
+    background: var(--gold);
+    color: var(--iron);
+    padding: clamp(1.75rem, 3.5vw, 2.5rem) 0;
+  }
+  .deal-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 5vw, 3rem);
+    display: flex; align-items: center; justify-content: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    flex-wrap: wrap;
+  }
+  .deal-block { display: flex; flex-direction: column; align-items: center; }
+  .deal-price {
+    font-family: var(--ff-display);
+    font-size: clamp(3.8rem, 8vw, 6rem);
+    line-height: 0.9;
+    color: var(--iron);
+    letter-spacing: 0.01em;
+  }
+  .deal-price sup {
+    font-family: var(--ff-head);
+    font-size: 1.4rem; font-weight: 700;
+    vertical-align: super;
+  }
+  .deal-label {
+    font-family: var(--ff-head);
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(26,26,27,0.7);
+    margin-top: 0.25rem;
+  }
+  .deal-divider { width: 1px; height: 64px; background: rgba(26,26,27,0.25); }
+  .deal-statement {
+    font-family: var(--ff-head);
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    font-weight: 700;
+    color: var(--iron);
+    max-width: 32ch;
+    line-height: 1.4;
+  }
+
+  /* ─── WHY IT WORKS ─────────────────────────────────────── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .why-card {
+    background: var(--iron);
+    padding: clamp(1.75rem, 3vw, 2.5rem);
+    display: flex; flex-direction: column; gap: 0.8rem;
+    min-height: 240px;
+  }
+  .why-num {
+    font-family: var(--ff-display);
+    font-size: 3rem;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0.45;
+  }
+  .why-title {
+    font-family: var(--ff-head);
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+  .why-body {
+    font-size: 0.92rem;
+    color: var(--slate);
+    opacity: 0.85;
+    line-height: 1.65;
+  }
+
+  /* ─── HOW IT WORKS ─────────────────────────────────────── */
+  .how-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .how-img {
+    aspect-ratio: 3/4;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.4)),
+      url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/student-promo/rw-student-break-row-side') center top/cover no-repeat;
+  }
+  .how-steps { display: flex; flex-direction: column; gap: 1.5rem; }
+  .how-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.25rem;
+    align-items: start;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .how-step:last-child { border-bottom: none; }
+  .how-step-num {
+    font-family: var(--ff-display);
+    font-size: 2.4rem;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 1.4em;
+  }
+  .how-step-title {
+    font-family: var(--ff-head);
+    font-size: 1rem; font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.01em;
+  }
+  .how-step-body {
+    font-size: 0.92rem;
+    color: var(--slate);
+    opacity: 0.8;
+  }
+
+  /* ─── FAQ ──────────────────────────────────────────────── */
+  .faq-list { max-width: 760px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    padding: 1.5rem 0;
+    list-style: none;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+    font-family: var(--ff-head);
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    transition: color 0.2s;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-family: var(--ff-display);
+    font-size: 1.8rem;
+    color: var(--gold);
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item summary:hover { color: var(--gold); }
+  .faq-body {
+    padding: 0 0 1.5rem;
+    font-size: 0.95rem;
+    color: var(--slate);
+    opacity: 0.85;
+    line-height: 1.7;
+  }
+
+  /* ─── FINAL CTA ────────────────────────────────────────── */
+  #final-cta {
+    position: relative;
+    overflow: hidden;
+  }
+  .final-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(26,26,27,0.35) 0%, rgba(26,26,27,0.55) 45%, rgba(26,26,27,0.85) 100%),
+      url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/student-promo/rw-student-break-rower') center top/cover no-repeat;
+  }
+  .final-content {
+    position: relative;
+    text-align: center;
+    padding: clamp(5rem, 10vw, 8rem) clamp(1.25rem, 5vw, 3rem);
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  .final-headline {
+    font-family: var(--ff-display);
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 0.96;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.01em;
+  }
+  .final-sub {
+    font-family: var(--ff-head);
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--slate);
+    margin-bottom: 2.5rem;
+    line-height: 1.55;
+  }
+  .final-actions {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1rem 2rem; align-items: center;
+  }
+  .final-address {
+    font-family: var(--ff-head);
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(229,229,229,0.65);
+    line-height: 1.6;
+    margin-top: 2.5rem;
+  }
+
+  /* ─── FOOTER ───────────────────────────────────────────── */
+  footer {
+    background: #000;
+    padding: 2.5rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  footer p {
+    font-family: var(--ff-head);
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(229,229,229,0.35);
+  }
+  footer a { color: var(--gold); }
+
+  /* ─── RESPONSIVE ───────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .how-list { grid-template-columns: 1fr; }
+    .how-img { aspect-ratio: 16/10; }
+
+    /* Mobile hero: full bleed, text sits in the bottom gradient ledge */
+    .hero-bg {
+      background:
+        linear-gradient(180deg, rgba(26,26,27,0) 30%, rgba(26,26,27,0.6) 55%, rgba(26,26,27,0.98) 100%),
+        url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/student-promo/rw-student-break-hero') center top/cover no-repeat;
+    }
+    .hero-headline { font-size: clamp(3rem, 11vw, 5rem); }
+    .hero-sub { font-size: 1rem; }
+  }
+  @media (max-width: 600px) {
+    .deal-divider { display: none; }
+    .deal-inner { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────────────── -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="River West Family Fitness — Home">
+        <img src="logos/riverwest-wordmark-white.svg" alt="River West Family Fitness">
+      </a>
+      <a href="index.html" class="nav-back">← Back to Site</a>
+      <span class="nav-phone">630.879.8889</span>
+    </div>
+  </nav>
+
+  <!-- ── HERO ────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">For College Students · 2026</p>
+      <h1 class="hero-headline">Home For Break.<br><em>The Gym Never Left.</em></h1>
+      <p class="hero-sub">A discounted year-round membership for students who go away to school — built for the weeks you're actually home. One payment, every break covered.</p>
+      <div class="hero-cta-row">
+        <a href="#how" class="btn-primary">How It Works <span>→</span></a>
+        <a href="https://maps.google.com/?q=108+First+Street+Batavia+IL" target="_blank" rel="noopener" class="btn-secondary">108 First Street, Batavia</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DEAL BAR ────────────────────────────────────────────────── -->
+  <div id="deal">
+    <div class="deal-inner">
+      <div class="deal-block">
+        <span class="deal-price"><sup>$</sup>229</span>
+        <span class="deal-label">For the Entire Year</span>
+      </div>
+      <div class="deal-divider"></div>
+      <p class="deal-statement">You only pay for the time you're actually home. One simple payment, no monthly billing.</p>
+    </div>
+  </div>
+
+  <!-- ── WHY IT WORKS ────────────────────────────────────────────── -->
+  <section class="section section-dark-alt">
+    <div class="container">
+      <p class="section-label text-center">Why It Works</p>
+      <h2 class="section-title text-center">Built For Students,<br>Not For Billing.</h2>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <span class="why-num">01</span>
+          <h3 class="why-title">Pay for what you use</h3>
+          <p class="why-body">No charges for the nine months you're at school. One annual payment covers winter break, spring break, summer — and every long weekend in between.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-num">02</span>
+          <h3 class="why-title">Full gym, full hours</h3>
+          <p class="why-body">Same gym floor as any other member. Squat racks, free weights, cardio, every machine — same hours, every day you're home.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-num">03</span>
+          <h3 class="why-title">One payment. Done.</h3>
+          <p class="why-body">No auto-renewals to cancel. No monthly draft from a card you forgot about. Pay $229 once, walk in whenever you're back in town.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ────────────────────────────────────────────── -->
+  <section id="how" class="section">
+    <div class="container">
+      <p class="section-label">How It Works</p>
+      <h2 class="section-title">Three steps.<br>Then keep training.</h2>
+
+      <div class="how-list">
+        <div class="how-img"></div>
+        <ol class="how-steps">
+          <li class="how-step">
+            <span class="how-step-num">1</span>
+            <div>
+              <h3 class="how-step-title">Show Proof of Enrollment</h3>
+              <p class="how-step-body">A current student ID, class schedule, or enrollment verification letter from a non-local institution. We just need to see you're really away at school.</p>
+            </div>
+          </li>
+          <li class="how-step">
+            <span class="how-step-num">2</span>
+            <div>
+              <h3 class="how-step-title">Pay $229 Once</h3>
+              <p class="how-step-body">One annual payment — no monthly draft, no auto-renew. Cash, card, or check at the front desk. Takes about five minutes to get set up.</p>
+            </div>
+          </li>
+          <li class="how-step">
+            <span class="how-step-num">3</span>
+            <div>
+              <h3 class="how-step-title">Train Whenever You're Home</h3>
+              <p class="how-step-body">Walk in any time during the calendar year. Same hours, same equipment, same gym floor as any full member. We'll know your name on day two.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ─────────────────────────────────────────────────────── -->
+  <section class="section section-dark-alt">
+    <div class="container">
+      <p class="section-label text-center">FAQ</p>
+      <h2 class="section-title text-center">Things students ask.</h2>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>What counts as "non-local"?</summary>
+          <p class="faq-body">If your school is far enough away that you can't reasonably commute home to work out — that's non-local. We're not strict about distance; we're looking for students who are genuinely living away at school and home for breaks.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What if I have an online or local program?</summary>
+          <p class="faq-body">The Break Pass is built for students who go away. If you live nearby and attend school locally (online or in-person), check out our standard memberships — there's likely a better fit.</p>
+        </details>
+        <details class="faq-item">
+          <summary>When does the year start?</summary>
+          <p class="faq-body">Your year starts the day you sign up and runs 12 months. Buy it in December? It runs through next December. Buy it before summer? Covers next year's winter and spring breaks too.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I bring a friend or family member?</summary>
+          <p class="faq-body">Guest passes work the same as any membership. Your family can join under our standard plans — and yes, our annual plan comes with the "guaranteed or your old body back" promise.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What if I drop out, transfer, or graduate mid-year?</summary>
+          <p class="faq-body">Your pass stays valid through the 12 months you paid for. After that, if you're back in Batavia full-time, we'll roll you onto a standard membership at the resident rate.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FINAL CTA ───────────────────────────────────────────────── -->
+  <section id="final-cta">
+    <div class="final-bg"></div>
+    <div class="final-content">
+      <p class="section-label">Ready</p>
+      <h2 class="final-headline">Stop Paying<br>For Nine Months<br>You're Not Here.</h2>
+      <p class="final-sub">Bring your student ID. We'll do the rest.</p>
+      <div class="final-actions">
+        <a href="https://maps.google.com/?q=108+First+Street+Batavia+IL" target="_blank" rel="noopener" class="btn-primary">Sign Up At The Front Desk <span>→</span></a>
+        <a href="https://maps.google.com/?q=108+First+Street+Batavia+IL" target="_blank" rel="noopener" class="btn-secondary">Get Directions</a>
+      </div>
+      <p class="final-address">River West Family Fitness · 108 First Street · Batavia, IL 60510 · 630.879.8889</p>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p>© 2026 River West Family Fitness · <a href="index.html">Back to Main Site</a></p>
+    </div>
+  </footer>
+
+<script>
+  // Sticky nav background on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 30);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Break Pass — Popup Demo · River West</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --iron:  #1A1A1B;
+    --iron2: #111112;
+    --gold:  #C5A059;
+    --gold2: #b08f47;
+    --slate: #E5E5E5;
+    --white: #FFFFFF;
+    --ff-display: 'Bebas Neue', sans-serif;
+    --ff-head:    'Montserrat', sans-serif;
+    --ff-body:    'Inter', sans-serif;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--ff-body);
+    background: var(--iron);
+    color: var(--slate);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Demo stage — simulates the homepage behind the popup */
+  .stage {
+    min-height: 100vh;
+    background:
+      linear-gradient(rgba(26,26,27,0.7), rgba(26,26,27,0.92)),
+      url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/student-promo/rw-student-break-row-side') center/cover no-repeat;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+  .stage-label {
+    position: fixed;
+    top: 1rem; left: 1rem;
+    font-family: var(--ff-head);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(229,229,229,0.5);
+    z-index: 1;
+  }
+
+  /* ─── POPUP ──────────────────────────────────────────── */
+  .pop-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    z-index: 1000;
+    animation: fadeIn 0.45s ease-out;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.985); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .pop {
+    position: relative;
+    width: min(880px, 100%);
+    background: var(--iron2);
+    color: var(--slate);
+    display: grid;
+    grid-template-columns: 0.95fr 1fr;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(197,160,89,0.08) inset;
+    animation: riseIn 0.55s cubic-bezier(.2,.7,.2,1);
+  }
+
+  .pop-image {
+    position: relative;
+    min-height: 480px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 100%),
+      url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/student-promo/rw-student-break-hero') center top/cover no-repeat;
+  }
+  .pop-image::after {
+    /* gold corner accent */
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 56px; height: 56px;
+    border-top: 2px solid var(--gold);
+    border-left: 2px solid var(--gold);
+  }
+  .pop-image-tag {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    font-family: var(--ff-head);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .pop-image-tag::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin-right: 0.6rem;
+  }
+
+  .pop-body {
+    padding: clamp(1.75rem, 3vw, 2.75rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.1rem;
+  }
+  .pop-eyebrow {
+    font-family: var(--ff-head);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .pop-headline {
+    font-family: var(--ff-display);
+    font-size: clamp(2.4rem, 4.6vw, 3.4rem);
+    line-height: 0.96;
+    color: var(--white);
+    letter-spacing: 0.01em;
+  }
+  .pop-headline em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .pop-sub {
+    font-family: var(--ff-head);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--slate);
+    line-height: 1.55;
+    max-width: 32ch;
+  }
+
+  .pop-deal {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.85rem 0 0.95rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin: 0.25rem 0 0.4rem;
+  }
+  .pop-price {
+    font-family: var(--ff-display);
+    font-size: 3rem;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  .pop-price sup {
+    font-family: var(--ff-head);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    vertical-align: super;
+  }
+  .pop-price-meta {
+    font-family: var(--ff-head);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--slate);
+    opacity: 0.75;
+    line-height: 1.4;
+  }
+  .pop-price-meta strong { color: var(--gold); font-weight: 700; }
+
+  .pop-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.05rem 1.4rem;
+    background: var(--gold);
+    color: var(--iron);
+    font-family: var(--ff-head);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 0.25rem;
+  }
+  .pop-cta:hover {
+    background: var(--white);
+    transform: translateX(2px);
+  }
+  .pop-cta-arrow {
+    font-family: var(--ff-body);
+    font-size: 1.1rem;
+    letter-spacing: 0;
+  }
+
+  .pop-fineprint {
+    font-size: 0.72rem;
+    color: rgba(229,229,229,0.55);
+    line-height: 1.5;
+  }
+
+  /* Close button */
+  .pop-close {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 36px; height: 36px;
+    display: grid;
+    place-items: center;
+    background: rgba(255,255,255,0.06);
+    color: var(--white);
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+    z-index: 2;
+  }
+  .pop-close:hover { background: rgba(197,160,89,0.25); }
+  .pop-close svg { width: 14px; height: 14px; }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .pop { grid-template-columns: 1fr; }
+    .pop-image { min-height: 220px; }
+    .pop-image::after { width: 40px; height: 40px; }
+  }
+  @media (max-width: 420px) {
+    .pop-headline { font-size: 2rem; }
+    .pop-price { font-size: 2.6rem; }
+  }
+</style>
+</head>
+<body>
+
+  <span class="stage-label">Popup Demo · Click backdrop or × to dismiss</span>
+
+  <!-- Demo stage to simulate the page behind the popup -->
+  <div class="stage"></div>
+
+  <!-- ─── POPUP ────────────────────────────────────────── -->
+  <div class="pop-backdrop" id="popBackdrop">
+    <div class="pop" role="dialog" aria-modal="true" aria-labelledby="popHead">
+      <button class="pop-close" id="popClose" aria-label="Close">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M1 1L13 13M13 1L1 13"/>
+        </svg>
+      </button>
+
+      <div class="pop-image" aria-hidden="true">
+        <p class="pop-image-tag">Home for Break · Workout Included</p>
+      </div>
+
+      <div class="pop-body">
+        <p class="pop-eyebrow">College Student Pass</p>
+        <h2 class="pop-headline" id="popHead">Home For Break.<br><em>The Gym Never Left.</em></h2>
+        <p class="pop-sub">A discounted year-round membership for students away at school — built for the weeks you're actually home.</p>
+
+        <div class="pop-deal">
+          <span class="pop-price"><sup>$</sup>229</span>
+          <span class="pop-price-meta">For the <strong>Entire Year</strong><br>One-time payment</span>
+        </div>
+
+        <a href="college-break.html" class="pop-cta">
+          See the Offer
+          <span class="pop-cta-arrow">→</span>
+        </a>
+
+        <p class="pop-fineprint">*Proof of enrollment at a non-local institution required.</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Dismiss handlers — wire these up to whatever cookie/localStorage logic you want
+  const backdrop = document.getElementById('popBackdrop');
+  const close    = document.getElementById('popClose');
+
+  function dismiss() {
+    backdrop.style.transition = 'opacity 0.3s ease';
+    backdrop.style.opacity = '0';
+    setTimeout(() => backdrop.remove(), 300);
+    // localStorage.setItem('rw_college_popup_dismissed', Date.now()); // optional
+  }
+  close.addEventListener('click', dismiss);
+  backdrop.addEventListener('click', e => { if (e.target === backdrop) dismiss(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') dismiss(); });
+</script>
+
+</body>
+</html>

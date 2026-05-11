@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>River West Family Fitness — Batavia's Real Gym</title>
+  <meta name="description" content="River West Family Fitness. 108 First Street, Batavia, IL. The only gym in the Tri-Cities where the owner has coached for 20+ years and knows every member by name. Gym membership, boot camp, and personal training.">
+  <meta property="og:title" content="River West Family Fitness">
+  <meta property="og:description" content="Batavia's real gym. No pressure. No gimmicks. Just real work.">
+  <meta property="og:image" content="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-tire-flip-building-hero-wide">
+  <link rel="icon" type="image/svg+xml" href="logos/riverwest-icon-square-black.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --iron:  #1A1A1B;
+      --iron2: #111112;
+      --gold:  #C5A059;
+      --gold2: #b08f47;
+      --teal:  #2D5F5D;
+      --slate: #E5E5E5;
+      --white: #FFFFFF;
+      --ff-display: 'Bebas Neue', sans-serif;
+      --ff-head:    'Montserrat', sans-serif;
+      --ff-body:    'Inter', sans-serif;
+      --max: 1200px;
+      --gap: clamp(2rem, 5vw, 4rem);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--iron);
+      color: var(--slate);
+      font-family: var(--ff-body);
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 3rem); }
+    .section   { padding: clamp(5rem, 10vw, 9rem) 0; }
+    .section-dark-alt { background: var(--iron2); }
+    .text-center { text-align: center; }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────────── */
+    .section-label {
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+      letter-spacing: 0.01em;
+    }
+    .section-intro {
+      font-family: var(--ff-head);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--slate);
+      max-width: 560px;
+      margin: -3rem auto clamp(3rem, 5vw, 4.5rem);
+    }
+    .pull-quote {
+      font-family: var(--ff-head);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      font-style: italic;
+      font-weight: 700;
+      color: var(--gold);
+      border-left: 3px solid var(--gold);
+      padding-left: 1.25rem;
+      margin: 2rem 0;
+    }
+
+    /* ─── FADE IN ────────────────────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ─── NAV ────────────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem clamp(1.25rem, 5vw, 3rem);
+      transition: background 0.3s ease, padding 0.3s ease;
+    }
+    #nav.scrolled {
+      background: var(--iron);
+      padding-top: 0.9rem;
+      padding-bottom: 0.9rem;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    .nav-logo img { height: 30px; width: auto; }
+    .nav-phone {
+      font-family: var(--ff-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .nav-phone:hover { color: var(--white); }
+    .nav-hours {
+      font-family: var(--ff-head);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: rgba(229,229,229,0.45);
+      line-height: 1.6;
+      text-align: right;
+    }
+    .nav-hours strong {
+      color: rgba(229,229,229,0.7);
+      font-weight: 700;
+    }
+    @media (max-width: 600px) { .nav-hours { display: none; } }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      height: 100svh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(26,26,27,0.3) 0%,
+        rgba(26,26,27,0.1) 30%,
+        rgba(26,26,27,0.55) 65%,
+        rgba(26,26,27,0.95) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 0 clamp(1.25rem, 5vw, 3rem) clamp(4rem, 8vw, 7rem);
+      max-width: calc(var(--max) + clamp(2.5rem, 10vw, 6rem));
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .hero-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(4.5rem, 13vw, 11rem);
+      line-height: 0.92;
+      color: var(--white);
+      letter-spacing: 0.01em;
+      margin-bottom: clamp(1.25rem, 3vw, 2rem);
+    }
+    .hero-sub {
+      font-family: var(--ff-head);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 600;
+      color: var(--slate);
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+      max-width: 480px;
+    }
+    .hero-cta-block { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .hero-cta-phone {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .hero-cta-phone:hover { color: var(--white); }
+    .hero-cta-address {
+      font-family: var(--ff-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(229,229,229,0.6);
+      line-height: 1.5;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 1.75rem;
+      right: clamp(1.25rem, 5vw, 3rem);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-scroll span {
+      font-family: var(--ff-head);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(229,229,229,0.5);
+      writing-mode: vertical-rl;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: var(--gold);
+      opacity: 0.5;
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%   { opacity: 0; transform: scaleY(0); transform-origin: top; }
+      50%  { opacity: 0.5; transform: scaleY(1); transform-origin: top; }
+      100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+    }
+
+    /* ─── PROOF BAR ──────────────────────────────────────────── */
+    #proof-bar { background: var(--gold); padding: clamp(1.5rem, 3vw, 2.25rem) 0; }
+    .proof-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .proof-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem clamp(1.5rem, 4vw, 3.5rem);
+    }
+    .proof-num {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1;
+      color: var(--iron);
+    }
+    .proof-label {
+      font-family: var(--ff-head);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(26,26,27,0.65);
+      margin-top: 0.15rem;
+      text-align: center;
+    }
+    .proof-divider {
+      width: 1px;
+      height: 48px;
+      background: rgba(26,26,27,0.2);
+      flex-shrink: 0;
+    }
+
+    /* ─── STORY ──────────────────────────────────────────────── */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .story-text h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 1.75rem;
+      letter-spacing: 0.01em;
+    }
+    .story-text p { color: var(--slate); margin-bottom: 1.25rem; }
+    .story-text p:last-child { margin-bottom: 0; }
+    .story-pull {
+      font-family: var(--ff-head);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--gold) !important;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.25rem;
+    }
+    .story-image img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* ─── PILLARS ────────────────────────────────────────────── */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    .pillar {
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+    }
+    .pillar-image img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s ease;
+    }
+    .pillar:hover .pillar-image img { transform: scale(1.04); }
+    .pillar-image { overflow: hidden; }
+    .pillar-content { padding: clamp(1.5rem, 3vw, 2rem); }
+    .pillar-content h3 {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.75rem;
+    }
+    .pillar-content p { font-size: 0.95rem; line-height: 1.7; color: var(--slate); }
+
+    /* ─── PROGRAMS ───────────────────────────────────────────── */
+    .program {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 7rem);
+      align-items: center;
+      padding-bottom: clamp(4rem, 7vw, 7rem);
+      margin-bottom: clamp(4rem, 7vw, 7rem);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .program:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+    .program-reverse { direction: rtl; }
+    .program-reverse > * { direction: ltr; }
+    .program-image img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .program-video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #000;
+    }
+    .program-video-wrap.portrait {
+      aspect-ratio: 9 / 16;
+    }
+    .program.portrait-grid {
+      grid-template-columns: 0.5fr 1fr;
+    }
+    .program-video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .bc-unmute {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      background: rgba(0,0,0,0.65);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s, color 0.2s;
+    }
+    .bc-unmute:hover { background: rgba(0,0,0,0.9); color: var(--white); border-color: var(--white); }
+    .bc-unmute svg { width: 1.4rem; height: 1.4rem; flex-shrink: 0; }
+    .bc-unmute .bc-unmute-label { display: none; }
+    .bc-unmute .icon-unmuted { display: none; }
+    .bc-unmute.is-unmuted .icon-muted { display: none; }
+    .bc-unmute.is-unmuted .icon-unmuted { display: block; }
+    .program-content h3 {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .program-tag {
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem !important;
+    }
+    .program-content p { color: var(--slate); margin-bottom: 1.1rem; }
+    .program-content p:last-child { margin-bottom: 0; }
+    .program-pull {
+      font-family: var(--ff-head);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--gold) !important;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.25rem;
+    }
+
+    /* ─── BOOT CAMP DETAIL ───────────────────────────────────── */
+    .bc-section {
+      background: #000;
+      padding: clamp(3rem, 5vw, 5rem) 0 clamp(4rem, 7vw, 7rem);
+    }
+    .programs-top {
+      padding-bottom: clamp(4rem, 7vw, 7rem);
+    }
+    .programs-top .program {
+      border-bottom: none;
+    }
+    .programs-bottom {
+      padding-top: clamp(4rem, 7vw, 7rem);
+    }
+    .bc-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: clamp(1.5rem, 3vw, 2rem);
+    }
+    .bc-header h3 {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+    .bc-header .program-tag { margin-bottom: 0 !important; }
+    .bc-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      margin-top: clamp(2rem, 4vw, 3rem);
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+      align-items: start;
+    }
+    .bc-body p { color: var(--slate); margin-bottom: 1.1rem; }
+    .bc-body p:last-child { margin-bottom: 0; }
+    .bc-body .program-pull {
+      font-family: var(--ff-head);
+      font-style: italic;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--gold) !important;
+      border-left: 3px solid var(--gold);
+      padding-left: 1.25rem;
+    }
+    .bc-detail { margin-top: 0; }
+    .bc-pricing {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .bc-price-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .bc-price-card.bc-price-featured {
+      border-color: var(--gold);
+      background: rgba(197,160,89,0.07);
+    }
+    .bc-price-badge {
+      font-family: var(--ff-head);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .bc-price-amount {
+      font-family: var(--ff-display);
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .bc-price-amount sup {
+      font-family: var(--ff-head);
+      font-size: 1rem;
+      font-weight: 700;
+      vertical-align: super;
+      color: var(--gold);
+    }
+    .bc-price-per {
+      font-family: var(--ff-head);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .bc-price-label {
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.4rem;
+    }
+    .bc-price-desc {
+      font-size: 0.8rem;
+      color: var(--slate);
+      opacity: 0.6;
+      line-height: 1.55;
+    }
+    .bc-schedule {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .bc-day {
+      border-top: 2px solid rgba(255,255,255,0.1);
+      border-right: 1px solid rgba(255,255,255,0.07);
+      padding: 1.25rem 1.25rem 1.25rem 0;
+    }
+    .bc-day:first-child { padding-left: 0; }
+    .bc-day:last-child { border-right: none; padding-right: 0; }
+    .bc-day + .bc-day { padding-left: 1.25rem; }
+    .bc-day-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+    .bc-day-name {
+      font-family: var(--ff-display);
+      font-size: 2.2rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .bc-day-time {
+      font-family: var(--ff-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      opacity: 0.6;
+    }
+    .bc-day-type {
+      font-family: var(--ff-head);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .bc-day-desc {
+      font-size: 0.78rem;
+      color: var(--slate);
+      opacity: 0.6;
+      line-height: 1.6;
+    }
+    @media (max-width: 900px) {
+      .bc-pricing { grid-template-columns: 1fr 1fr; }
+      .bc-schedule { grid-template-columns: 1fr 1fr; }
+      .bc-day { border-right: none; padding: 1.25rem 0; }
+      .bc-day + .bc-day { padding-left: 0; }
+      .bc-body { grid-template-columns: 1fr; }
+      .bc-header { flex-direction: column; gap: 0.5rem; }
+    }
+    @media (max-width: 500px) {
+      .bc-pricing { grid-template-columns: 1fr; }
+      .bc-schedule { grid-template-columns: 1fr; }
+    }
+
+    /* ─── MEMBERSHIP PRICING ────────────────────────────────── */
+    .mem-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .mem-card {
+      background: var(--iron2);
+      padding: 1.75rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      min-height: 210px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mem-card.mem-card-featured {
+      background: #000;
+    }
+    .mem-card.mem-card-best {
+      background: rgba(197,160,89,0.08);
+      outline: 1px solid var(--gold);
+    }
+    /* Corner ribbon badge */
+    .mem-best-badge {
+      position: absolute;
+      top: 22px;
+      right: -38px;
+      width: 160px;
+      background: var(--gold);
+      color: var(--iron);
+      text-align: center;
+      padding: 7px 0 6px;
+      transform: rotate(45deg);
+      transform-origin: center;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .badge-main {
+      font-family: var(--ff-head);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .badge-sub {
+      font-family: var(--ff-head);
+      font-size: 0.42rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1;
+      opacity: 0.75;
+    }
+    .mem-period {
+      font-family: var(--ff-head);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .mem-price {
+      font-family: var(--ff-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      line-height: 1;
+      color: var(--white);
+    }
+    .mem-price sup {
+      font-family: var(--ff-head);
+      font-size: 1rem;
+      font-weight: 700;
+      vertical-align: super;
+      color: var(--gold);
+    }
+    .mem-per {
+      font-family: var(--ff-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .mem-label {
+      font-family: var(--ff-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-top: 0.5rem;
+    }
+    .mem-note {
+      font-size: 0.78rem;
+      color: var(--slate);
+      opacity: 0.55;
+      line-height: 1.5;
+    }
+
+    /* Short-term */
+    .mem-short {
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.75rem;
+      margin-bottom: clamp(2rem, 4vw, 3rem);
+    }
+    .mem-short-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .mem-short-title {
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .mem-short-note {
+      font-size: 0.78rem;
+      color: var(--slate);
+      opacity: 0.5;
+    }
+    .mem-short-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .mem-short-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      min-width: 80px;
+    }
+    .mem-short-item:last-child { border-right: none; }
+    .mem-short-price {
+      font-family: var(--ff-display);
+      font-size: 1.8rem;
+      line-height: 1;
+      color: var(--white);
+    }
+    .mem-short-dur {
+      font-family: var(--ff-head);
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      opacity: 0.5;
+      margin-top: 0.3rem;
+    }
+    .mem-short-guest {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--slate);
+      opacity: 0.55;
+    }
+
+    /* Fine print */
+    .mem-fine {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      padding-top: clamp(1.5rem, 3vw, 2rem);
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .mem-fine p {
+      font-size: 0.78rem;
+      color: var(--slate);
+      opacity: 0.4;
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      .mem-grid { grid-template-columns: repeat(2, 1fr); }
+      .mem-short-item { padding: 0.6rem 0.9rem; }
+    }
+    @media (max-width: 500px) {
+      .mem-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── PERSONAL TRAINING ─────────────────────────────────── */
+    .pt-unmute {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .pt-unmute:hover { background: rgba(0,0,0,0.85); border-color: var(--gold); color: var(--gold); }
+    .pt-unmute svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+    .pt-unmute .pt-unmute-label { display: none; }
+    .pt-unmute .icon-unmuted { display: none; }
+    .pt-unmute.is-unmuted .icon-muted { display: none; }
+    .pt-unmute.is-unmuted .icon-unmuted { display: block; }
+
+    .chris-accordion {
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .chris-accordion-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      cursor: pointer;
+      list-style: none;
+      font-family: var(--ff-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      transition: color 0.2s;
+      user-select: none;
+    }
+    .chris-accordion-trigger::-webkit-details-marker { display: none; }
+    .chris-accordion-trigger:hover { color: var(--gold); }
+    .chris-chevron {
+      width: 1.5rem;
+      height: 1.5rem;
+      flex-shrink: 0;
+      transition: transform 0.25s;
+      color: var(--gold);
+    }
+    details[open] .chris-chevron { transform: rotate(180deg); }
+    .chris-accordion-body {
+      padding-bottom: 1rem;
+    }
+    .chris-accordion-body p {
+      font-size: 0.88rem;
+      color: var(--slate);
+      opacity: 0.75;
+      margin-bottom: 0.75rem;
+      line-height: 1.65;
+    }
+    .chris-accordion-body p:last-child { margin-bottom: 0; }
+
+    .pt-pricing {
+      margin-top: 1.75rem;
+    }
+    .pt-price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .pt-price-sessions {
+      font-family: var(--ff-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: 0.02em;
+    }
+    .pt-price-amount {
+      font-family: var(--ff-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--gold);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .pt-price-details {
+      padding: 0.75rem 0 0.25rem;
+      font-family: var(--ff-head);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--slate);
+      opacity: 0.55;
+    }
+    .pt-price-note {
+      font-size: 0.75rem;
+      color: var(--slate);
+      opacity: 0.4;
+      margin-top: 0.4rem;
+      margin-bottom: 0 !important;
+    }
+
+    /* ─── VIDEOS ─────────────────────────────────────────────── */
+    .video-scroll-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 0; }
+    .video-scroll-wrap::-webkit-scrollbar { display: none; }
+    .video-scroll {
+      display: flex;
+      gap: clamp(0.75rem, 2vw, 1.25rem);
+      padding: 0 clamp(1.25rem, 5vw, 3rem) clamp(1rem, 3vw, 2rem);
+      width: max-content;
+      margin: 0 auto;
+    }
+    .video-card { flex-shrink: 0; width: clamp(200px, 28vw, 300px); }
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      overflow: hidden;
+      background: #000;
+    }
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-play {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.35);
+      font-size: 2rem;
+      color: var(--white);
+      transition: background 0.2s;
+    }
+    .video-play:hover { background: rgba(0,0,0,0.15); }
+    .video-play.playing { opacity: 0; }
+    .video-wrap:hover .video-play.playing { opacity: 1; }
+    .video-caption {
+      font-family: var(--ff-head);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(229,229,229,0.5);
+      margin-top: 0.75rem;
+      padding: 0 0.25rem;
+    }
+
+    /* ─── REVIEWS ────────────────────────────────────────────── */
+    .section-reviews-full {
+      position: relative;
+      padding: 0;
+      overflow: hidden;
+    }
+    .reviews-carousel {
+      position: relative;
+      width: 100%;
+    }
+    .rc-track {
+      position: relative;
+      height: 88vh;
+      min-height: 580px;
+    }
+    .rc-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      pointer-events: none;
+      background-size: cover;
+      background-position: center;
+    }
+    .rc-slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.62) 60%, rgba(0,0,0,0.72) 100%);
+    }
+    .rc-slide.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .rc-slide-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      width: 90%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .rc-quote-mark {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(5rem, 12vw, 9rem);
+      line-height: 0.6;
+      color: var(--gold);
+      opacity: 0.55;
+      margin-bottom: 0.5rem;
+      user-select: none;
+    }
+    .rc-stars {
+      color: var(--gold);
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+    }
+    .rc-text {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      line-height: 1.2;
+      color: rgba(255,255,255,0.55);
+      font-weight: 900;
+      margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+      font-style: normal;
+    }
+    .rc-author {
+      font-family: var(--ff-head);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .rc-meta {
+      font-family: var(--ff-head);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: rgba(229,229,229,0.55);
+      margin-top: 0.25rem;
+      letter-spacing: 0.06em;
+    }
+    .rc-nav {
+      position: absolute;
+      bottom: clamp(1.5rem, 3vw, 2.5rem);
+      left: 0;
+      right: 0;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .rc-arrow {
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50%;
+      background: none;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .rc-arrow:hover { border-color: var(--gold); color: var(--gold); }
+    .rc-arrow svg { width: 1rem; height: 1rem; }
+    .rc-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .rc-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      padding: 0;
+    }
+    .rc-dot.active { background: var(--gold); transform: scale(1.3); }
+
+    .about-unmute {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .about-unmute:hover { background: rgba(0,0,0,0.85); border-color: var(--gold); color: var(--gold); }
+    .about-unmute svg { width: 1rem; height: 1rem; flex-shrink: 0; }
+    .about-unmute .icon-unmuted { display: none; }
+    .about-unmute.is-unmuted .icon-muted { display: none; }
+    .about-unmute.is-unmuted .icon-unmuted { display: block; }
+
+    /* ─── ABOUT CHRIS ────────────────────────────────────────── */
+    #about { background: var(--teal); }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 0.8fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .about-label {
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(229,229,229,0.6);
+      margin-bottom: 1rem;
+    }
+    .about-text h2 {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+    .about-title {
+      font-family: var(--ff-head);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(229,229,229,0.55);
+      margin-bottom: 2rem;
+    }
+    .about-text p {
+      color: rgba(229,229,229,0.85);
+      margin-bottom: 1.25rem;
+      line-height: 1.75;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-creds {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem 2rem;
+      margin-top: 2rem;
+    }
+    .about-creds li {
+      font-family: var(--ff-head);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.6);
+      padding-left: 1rem;
+      position: relative;
+    }
+    .about-creds li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+    .about-image img {
+      width: 100%;
+      height: 580px;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    /* ─── FIND US ────────────────────────────────────────────── */
+    #find-us { background: var(--gold); }
+    #find-us .section-label { color: rgba(26,26,27,0.5); }
+    #find-us .section-title { color: var(--iron); margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+    .find-us-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 7rem);
+    }
+    .find-us-block h3 {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      color: var(--iron);
+      letter-spacing: 0.04em;
+      margin-bottom: 1.25rem;
+    }
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr td {
+      font-family: var(--ff-head);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--iron);
+      padding: 0.55rem 0;
+      border-bottom: 1px solid rgba(26,26,27,0.12);
+    }
+    .hours-table tr:last-child td { border-bottom: none; }
+    .hours-table td:first-child { font-weight: 700; padding-right: 2rem; white-space: nowrap; }
+    .hours-vip {
+      font-family: var(--ff-head);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(26,26,27,0.5);
+      margin-top: 0.75rem;
+    }
+    address {
+      font-style: normal;
+      font-family: var(--ff-head);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--iron);
+      line-height: 1.9;
+      margin-bottom: 1.75rem;
+    }
+    .find-phone {
+      display: block;
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--iron);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      transition: opacity 0.2s;
+    }
+    .find-phone:hover { opacity: 0.7; }
+    .find-directions {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-head);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--iron);
+      border-bottom: 2px solid var(--iron);
+      padding-bottom: 0.15rem;
+      transition: opacity 0.2s;
+    }
+    .find-directions:hover { opacity: 0.6; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--iron2);
+      padding: clamp(2.5rem, 5vw, 4rem) 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 3rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      text-align: center;
+    }
+    .footer-logo img { height: 28px; opacity: 0.7; }
+    .footer-address {
+      font-family: var(--ff-head);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(229,229,229,0.35);
+    }
+    .footer-copy {
+      font-family: var(--ff-head);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: rgba(229,229,229,0.2);
+      letter-spacing: 0.06em;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .story-grid,
+      .about-inner { grid-template-columns: 1fr; }
+      .story-image { order: -1; }
+      .story-image img { height: 360px; }
+      .about-image { display: none; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar-image img { height: 240px; }
+      .program { grid-template-columns: 1fr; }
+      .program-reverse { direction: ltr; }
+      .program-image img { height: 300px; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .find-us-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.wide { grid-column: span 1; }
+      .proof-divider { display: none; }
+      .proof-inner { gap: 0.5rem; }
+      .proof-stat { padding: 0.5rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .gallery-item.tall { grid-row: span 1; }
+      .hero-cta-block { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .about-creds { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ───────────────────────────────────────────────────── -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="River West Family Fitness">
+        <img src="logos/riverwest-wordmark-white.svg" alt="River West Family Fitness">
+      </a>
+      <div class="nav-hours">
+        <div><strong>Mon – Fri</strong> &nbsp;5:00 AM – 1:00 PM &nbsp;·&nbsp; 4:00 PM – 8:00 PM</div>
+        <div><strong>Sat – Sun</strong> &nbsp;7:00 AM – 1:00 PM</div>
+      </div>
+      <a href="tel:6308798889" class="nav-phone">630.879.8889</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ──────────────────────────────────────────────────── -->
+  <section id="hero">
+    <video class="hero-video" autoplay muted loop playsinline
+      poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-tire-flip-building-hero-wide">
+      <source src="https://player.vimeo.com/progressive_redirect/playback/798009582/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=8190fdfedb5c43039ef4e7f95a0c02620e271a698bf7c4f73d33fde599b96c98" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">BATAVIA, IL &nbsp;·&nbsp; 108 FIRST STREET &nbsp;·&nbsp; EST. 1989</p>
+      <h1 class="hero-headline">IT'S YOU<br>AGAINST<br>YOURSELF.</h1>
+      <p class="hero-sub">One owner. One address. Twenty years of showing up.</p>
+      <div class="hero-cta-block">
+        <a href="tel:6308798889" class="hero-cta-phone">630.879.8889</a>
+        <span class="hero-cta-address">108 First Street<br>Batavia, IL 60510</span>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>SCROLL</span></div>
+  </section>
+
+  <!-- ── PROOF BAR ──────────────────────────────────────────────── -->
+  <div id="proof-bar">
+    <div class="proof-inner">
+      <div class="proof-stat">
+        <span class="proof-num">57</span>
+        <span class="proof-label">Five-Star Reviews</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-stat">
+        <span class="proof-num">20+</span>
+        <span class="proof-label">Years, One Owner</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-stat">
+        <span class="proof-num">1860</span>
+        <span class="proof-label">Building Est.</span>
+      </div>
+      <div class="proof-divider"></div>
+      <div class="proof-stat">
+        <span class="proof-num">1</span>
+        <span class="proof-label">Location. Always.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STORY ──────────────────────────────────────────────────── -->
+  <section id="story" class="section">
+    <div class="container story-grid">
+      <div class="story-text fade-in">
+        <p class="section-label">01 — Who We Are</p>
+        <h2>A real gym.<br>There aren't<br>many left.</h2>
+        <p>River West has been at 108 First Street since the late 1980s. Chris Hylton has owned it since 2003 — not because it was a business plan, but because he refused to let a great community gym disappear.</p>
+        <p>When Delnor Hospital decided to shut it down, Chris bought it. He'd been training the hospital president's family. He knew the members. He knew what the place meant to the neighborhood.</p>
+        <p>He's trained thousands of people since — professional athletes, stay-at-home parents, Division I players, an Olympic equestrian, and 80-year-old men who could barely get from their car to the front door. He knows the patterns. He knows what works.</p>
+        <p class="story-pull">"This is your new job. It's never ending — and that's the point."</p>
+      </div>
+      <div class="story-image fade-in">
+        <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-rw-logo-stone-wall-brand-shot"
+             alt="River West logo on original stone wall inside the gym" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PILLARS ─────────────────────────────────────────────────── -->
+  <section id="pillars" class="section section-dark-alt">
+    <div class="container">
+      <p class="section-label text-center">02 — What We Stand For</p>
+      <h2 class="section-title text-center">Three things.<br>Nothing else.</h2>
+      <div class="pillars-grid">
+
+        <div class="pillar fade-in">
+          <div class="pillar-image">
+            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-barbell-rack-forest-of-bars"
+                 alt="Forest of barbells at River West" loading="lazy">
+          </div>
+          <div class="pillar-content">
+            <h3>STRENGTH</h3>
+            <p>Physical capability built through real training with real weight. Full-size bars, Olympic plates, free weights up to any level you're at. Not machines. Not simulations.</p>
+          </div>
+        </div>
+
+        <div class="pillar fade-in">
+          <div class="pillar-image">
+            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-cardio-floor-hardwood-long"
+                 alt="Long cardio floor at River West on original hardwood" loading="lazy">
+          </div>
+          <div class="pillar-content">
+            <h3>LONGEVITY</h3>
+            <p>The goal isn't a short-term result. Core strength, leg strength, range of motion — these determine your quality of life at 60, 70, and beyond. That's what we work on.</p>
+          </div>
+        </div>
+
+        <div class="pillar fade-in">
+          <div class="pillar-image">
+            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-rw-logo-wide-floor-members"
+                 alt="Members training on the River West main floor" loading="lazy">
+          </div>
+          <div class="pillar-content">
+            <h3>COMMUNITY</h3>
+            <p>A place where people know each other and hold each other accountable. The owner knows your name because he actually wants to know it — not because it's in a script.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROGRAMS ────────────────────────────────────────────────── -->
+  <section id="programs" class="section">
+    <div class="container programs-top">
+      <p class="section-label text-center">03 — How It Works</p>
+      <h2 class="section-title text-center">Three ways in.</h2>
+
+      <!-- THE GYM -->
+      <div class="program fade-in">
+        <div class="program-image">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-equipment-depth-wide-stone-ceiling"
+               alt="River West gym floor — equipment depth under stone ceiling" loading="lazy">
+        </div>
+        <div class="program-content">
+          <h3>THE GYM</h3>
+          <p class="program-tag">Membership</p>
+          <p>Two floors. Free weights, machines, cardio, functional equipment — everything a serious person needs. Full-size bars. Sleds. Rowers. Ski ergs. Tires. Jacob's Ladders. If you need it for a real workout, it's here.</p>
+          <p>Come in. Work hard. Do your thing. No one's going to pressure you into anything the moment you walk in the door. The people who join here tend to come — and that's by design.</p>
+        </div>
+      </div>
+    </div>
+
+      <!-- BOOT CAMP -->
+      <div class="bc-section">
+        <div class="container">
+
+        <div class="bc-header fade-in">
+          <h3>BOOT CAMP</h3>
+          <p class="program-tag">4 Classes Per Week</p>
+        </div>
+
+        <div class="program-video-wrap fade-in">
+          <video autoplay muted loop playsinline>
+            <source src="https://player.vimeo.com/progressive_redirect/playback/1127875354/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=642d65d46ed80834129f2d50e36077b4391f1ecc6adbb461fbd968f0d296bcf8" type="video/mp4">
+          </video>
+          <button class="bc-unmute" aria-label="Unmute">
+            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+            <span class="bc-unmute-label">Unmute</span>
+          </button>
+        </div>
+
+        <div class="bc-body fade-in">
+          <div>
+            <p>Weights on Monday. Cardio and plyometrics on Wednesday. Core and mixed work on Thursday. Full-body interval training on Saturday at 9 AM. Chris programs it. Chris leads it. The classes are not gentle.</p>
+            <p>Eight sessions is the threshold. Get through eight and something shifts — you start gauging yourself, you see progress, the work becomes its own motivation. Start with Saturday. The interval format means you go at whatever pace you can sustain.</p>
+          </div>
+          <div>
+            <p class="program-pull">"It's brutal. It's also amazing — but only because it's brutal."</p>
+          </div>
+        </div>
+
+        <div class="bc-detail fade-in">
+
+          <!-- Pricing -->
+          <div class="bc-pricing">
+            <div class="bc-price-card bc-price-featured">
+              <div class="bc-price-amount"><sup>$</sup>159<span class="bc-price-per">/mo</span></div>
+              <div class="bc-price-label">Unlimited</div>
+              <div class="bc-price-desc">Unlimited classes per month</div>
+            </div>
+            <div class="bc-price-card">
+              <div class="bc-price-amount"><sup>$</sup>139<span class="bc-price-per">/8</span></div>
+              <div class="bc-price-label">Member Pack</div>
+              <div class="bc-price-desc">8 Class Package · Riverwest Members · Use anytime</div>
+            </div>
+            <div class="bc-price-card">
+              <div class="bc-price-amount"><sup>$</sup>179<span class="bc-price-per">/8</span></div>
+              <div class="bc-price-label">Non-Member Pack</div>
+              <div class="bc-price-desc">8 Class Package · Non-Riverwest Member · Use anytime</div>
+            </div>
+            <div class="bc-price-card">
+              <div class="bc-price-badge">First Timer Special</div>
+              <div class="bc-price-amount"><sup>$</sup>99</div>
+              <div class="bc-price-label">8 Classes</div>
+              <div class="bc-price-desc">For first timers — get through eight and see for yourself</div>
+            </div>
+          </div>
+
+          <!-- Weekly Schedule -->
+          <div class="bc-schedule">
+            <div class="bc-day">
+              <div class="bc-day-header">
+                <span class="bc-day-name">MON</span>
+                <span class="bc-day-time">5:30 PM</span>
+              </div>
+              <div class="bc-day-type">Weights · High Volume</div>
+              <div class="bc-day-desc">Compound Movements: Squat, Deadlift, Bench Press, Shoulder Press, Bicep Curl</div>
+            </div>
+            <div class="bc-day">
+              <div class="bc-day-header">
+                <span class="bc-day-name">WED</span>
+                <span class="bc-day-time">5:30 PM</span>
+              </div>
+              <div class="bc-day-type">Cardio · No Weights</div>
+              <div class="bc-day-desc">Running, Jumping, Bounding · Body Weight: Burpees, Push-ups, Bear Crawls</div>
+            </div>
+            <div class="bc-day">
+              <div class="bc-day-header">
+                <span class="bc-day-name">THR</span>
+                <span class="bc-day-time">5:30 PM</span>
+              </div>
+              <div class="bc-day-type">Weights · Core / Abs</div>
+              <div class="bc-day-desc">Core Stability · Team Challenges</div>
+            </div>
+            <div class="bc-day">
+              <div class="bc-day-header">
+                <span class="bc-day-name">SAT</span>
+                <span class="bc-day-time">9:00 AM</span>
+              </div>
+              <div class="bc-day-type">Interval · High Intensity</div>
+              <div class="bc-day-desc">Ball Slam, Battling Ropes, Rope Climb, Tire Flip, Sled Push, Sledge Hammer, Ski, Rowing, Stair Step</div>
+            </div>
+          </div>
+
+        </div>
+        </div><!-- /.container -->
+      </div><!-- /.bc-section -->
+
+      <!-- PERSONAL TRAINING -->
+      <div class="container programs-bottom">
+        <div class="program portrait-grid fade-in">
+          <div class="program-image">
+            <div class="program-video-wrap portrait">
+              <video autoplay muted loop playsinline>
+                <source src="https://player.vimeo.com/progressive_redirect/playback/798063613/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=e74fc89bab18e0ae4e98cc19b5c15092a8540408ce50ca62a25d6ab987eeb5d0" type="video/mp4">
+              </video>
+              <button class="pt-unmute" aria-label="Unmute">
+                <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <line x1="23" y1="9" x2="17" y2="15"/>
+                  <line x1="17" y1="9" x2="23" y2="15"/>
+                </svg>
+                <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                </svg>
+                <span class="pt-unmute-label">Unmute</span>
+              </button>
+            </div>
+          </div>
+          <div class="program-content">
+            <h3>PERSONAL TRAINING</h3>
+            <p class="program-tag">One-on-One with Chris</p>
+            <p>Not hand-holding. A plan — built around what you actually need, pushed to what you can actually handle, sustainable enough to build on. Thirty minutes of focused work, an hour total including warm-up and finishing cardio.</p>
+            <p>The goal isn't a client who needs a trainer forever. It's a client who learns enough in ten sessions to train on their own. Ten sessions is enough to build a foundation, learn the movements, and understand your own baselines.</p>
+            <p class="program-pull">"I do the thinking for you. You show up, you do what I tell you."</p>
+
+            <!-- More about Chris accordion -->
+            <details class="chris-accordion">
+              <summary class="chris-accordion-trigger">
+                <span>More about Chris</span>
+                <svg class="chris-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </summary>
+              <div class="chris-accordion-body">
+                <p>Chris Hylton has trained thousands of people over the past 15 years — from Olympic athletes to stay-at-home moms. Ten sessions with Chris will change your life.</p>
+                <p>Chris has been in the fitness industry for over 15 years. He specializes in youth sport-specific training and has worked with athletes in sports ranging from college tennis to professional football to professional motocross. Chris has won national powerlifting competitions.</p>
+              </div>
+            </details>
+
+            <!-- Pricing -->
+            <div class="pt-pricing">
+              <div class="pt-price-row">
+                <span class="pt-price-sessions">3 Session Starter</span>
+                <span class="pt-price-amount">$139</span>
+              </div>
+              <div class="pt-price-row">
+                <span class="pt-price-sessions">10 Sessions</span>
+                <span class="pt-price-amount">$390</span>
+              </div>
+              <div class="pt-price-details">
+                <span>30 min warm-up &nbsp;·&nbsp; 30 min one-on-one &nbsp;·&nbsp; Out the door in 60 min</span>
+              </div>
+              <p class="pt-price-note">*Discounts available for larger session packages</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </section>
+
+  <!-- ── MEMBERSHIP PRICING ──────────────────────────────────────── -->
+  <section id="membership" class="section section-dark-alt">
+    <div class="container">
+      <p class="section-label text-center">Membership</p>
+      <h2 class="section-title text-center">No pressure.<br>Simple prices.</h2>
+
+      <!-- Main plans -->
+      <div class="mem-grid fade-in">
+
+        <div class="mem-card mem-card-featured" style="background:#000">
+          <div class="mem-period">Monthly</div>
+          <div class="mem-price"><sup>$</sup>29<span class="mem-per">/mo</span></div>
+          <div class="mem-label">Cancel any time</div>
+          <div class="mem-note">+ $99 new member sign-up fee</div>
+        </div>
+
+        <div class="mem-card mem-card-best">
+          <div class="mem-best-badge">
+            <span class="badge-main">Guaranteed</span>
+            <span class="badge-sub">or your old body back</span>
+          </div>
+          <div class="mem-period">Annual</div>
+          <div class="mem-price"><sup>$</sup>399<span class="mem-per">/yr</span></div>
+          <div class="mem-label">No sign-up fee</div>
+          <div class="mem-note">Get a free month!</div>
+        </div>
+
+        <div class="mem-card">
+          <div class="mem-period">Quarterly</div>
+          <div class="mem-price"><sup>$</sup>139<span class="mem-per">/3 mos</span></div>
+          <div class="mem-label">No sign-up fee</div>
+        </div>
+
+        <div class="mem-card">
+          <div class="mem-period">Couple</div>
+          <div class="mem-price"><sup>$</sup>738<span class="mem-per">/yr</span></div>
+          <div class="mem-label">Per couple</div>
+          <div class="mem-note">No sign-up fee</div>
+        </div>
+
+        <div class="mem-card">
+          <div class="mem-period">Family</div>
+          <div class="mem-price"><sup>$</sup>1,299<span class="mem-per">/yr</span></div>
+          <div class="mem-label">4 or more</div>
+          <div class="mem-note">No sign-up fee</div>
+        </div>
+
+        <div class="mem-card">
+          <div class="mem-period">Dependent</div>
+          <div class="mem-price"><sup>$</sup>249<span class="mem-per">/yr</span></div>
+          <div class="mem-label">Ages 12–17</div>
+          <div class="mem-note">Parent must be a member</div>
+        </div>
+
+        <div class="mem-card">
+          <div class="mem-period">Student &amp; Military</div>
+          <div class="mem-price"><sup>$</sup>299<span class="mem-per">/yr</span></div>
+          <div class="mem-label">No sign-up fee</div>
+        </div>
+
+      </div>
+
+      <!-- Short-term -->
+      <div class="mem-short fade-in">
+        <div class="mem-short-header">
+          <span class="mem-short-title">Short-Term</span>
+          <span class="mem-short-note">New enrollment: $99 on monthly</span>
+        </div>
+        <div class="mem-short-row">
+          <div class="mem-short-item"><span class="mem-short-price">$40</span><span class="mem-short-dur">1 week</span></div>
+          <div class="mem-short-item"><span class="mem-short-price">$50</span><span class="mem-short-dur">2 weeks</span></div>
+          <div class="mem-short-item"><span class="mem-short-price">$60</span><span class="mem-short-dur">3 weeks</span></div>
+          <div class="mem-short-item"><span class="mem-short-price">$69</span><span class="mem-short-dur">1 month</span></div>
+          <div class="mem-short-item"><span class="mem-short-price">$119</span><span class="mem-short-dur">2 months</span></div>
+          <div class="mem-short-item"><span class="mem-short-price">$139</span><span class="mem-short-dur">3 months</span></div>
+          <div class="mem-short-item"><span class="mem-short-price">$239</span><span class="mem-short-dur">6 months</span></div>
+        </div>
+        <div class="mem-short-guest">1-day guest pass — $10</div>
+      </div>
+
+      <!-- Fine print -->
+      <div class="mem-fine fade-in">
+        <p>All new members including dependents must come in and fill out a new membership form.</p>
+        <p>Membership cancellation must be done in person.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── VIDEOS ──────────────────────────────────────────────────── -->
+  <section id="videos" class="section section-dark-alt">
+    <div class="container">
+      <p class="section-label text-center">04 — Proof of Work</p>
+      <h2 class="section-title text-center">See it for yourself.</h2>
+      <p class="section-intro text-center">Real training. Real people. No production crew.</p>
+    </div>
+    <div class="video-scroll-wrap">
+      <div class="video-scroll">
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-tire-flip-push-outdoor-action" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941435825/rendition/1080p/file.mp4?loc=external&amp;log_user=0&amp;signature=3b1a1bcfbfbc6bfb67ec22815e9ff4a4bca7315bac1b52993580dc2fe9f93ab2" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Flipping Tires</p>
+        </div>
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-jacobs-ladder-assault-bike-brick-arches" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941435821/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=3b1a1bcfbfbc6bfb67ec22815e9ff4a4bca7315bac1b52993580dc2fe9f93ab2" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Boot Camp — Ball Slam</p>
+        </div>
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-kettlebell-row-member-silhouette" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941440786/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=c840fc6072c3f0236886cd3ba7649cef4a4b893aac5ab65f8d507f2723bd10c7" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Tracy's First Boot Camp</p>
+        </div>
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-wide-floor-rowers-ski-ergs" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941435796/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=42b19466bd5aad68e335b14a9982968c09d9f5759cbc68ecd1ed2a9adca547e0" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Wednesday Boot Camp</p>
+        </div>
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-stairmaster-row-hardwood-timber" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941441092/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=822bb13cd556f45a12cec1acf7d1e55c74b8cdbdc021c8831d75be2436c3ad2f" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Exercise: The Greatest Drug</p>
+        </div>
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-bench-row-mirror-stone-wall" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941440759/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=dd5dd664aba04028bbe7fb8fe4d1d2e19ff63f27e38df9179a979cf7de90f263" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Mastering Bench Press</p>
+        </div>
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-cardio-floor-stairmaster-brick" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941441656/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=7d08869fb5a4f3a22ba102bc8c2dd65677d97a37d49d26ac100dcec9e49fa4ed" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Anyone Can Do This</p>
+        </div>
+
+        <div class="video-card fade-in">
+          <div class="video-wrap">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-flag-and-mural-wide" preload="none" playsinline muted loop>
+              <source src="https://player.vimeo.com/progressive_redirect/playback/941435786/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=68713f2cd49edebe2fba580576ea4f79a44f4b49223010223485dbef32205f57" type="video/mp4">
+            </video>
+            <button class="video-play" aria-label="Play">&#9654;</button>
+          </div>
+          <p class="video-caption">Boot Camp — Bullet Time</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REVIEWS ─────────────────────────────────────────────────── -->
+  <section id="reviews" class="section-reviews-full">
+    <div class="reviews-carousel" id="reviewsCarousel">
+      <div class="rc-track" id="rcTrack">
+
+        <div class="rc-slide active" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-barbell-rack.jpg')">
+          <div class="rc-slide-inner">
+            <p class="section-label text-center" style="color:rgba(255,255,255,0.55);margin-bottom:clamp(1rem,2vw,1.5rem)">05 — What Members Say</p>
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">I've worked with multiple trainers in the past, but none have delivered the level of results that Chris has. His confidence, dedication, and consistency create a space where you feel empowered and motivated, while being pushed and challenged. He has never cancelled a session. Choosing Chris as my coach may have changed my life, and I'm forever grateful.</p>
+            <div class="rc-author">Sarah</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-overhead-flag.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Being a member at River West is like being part of a family. The bootcamp and personal training classes have changed my life. The classes are intense, but still work for all levels. Chris is by far the best trainer I've ever gone to — knowledgeable, motivating, and will make you exceed your own limits.</p>
+            <div class="rc-author">Lo D.</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-building-exterior.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">You can tell how much the owner Chris cares about the place. On my first visit he walked me around the gym and fielded every question I had. He's always around to help out and is genuinely interested in your progress. Equipment has a great variety — cardio, machines, free weights, barbells, rowers, skiers, ladders, boxing, and powerlifting gear. A brewery next door. What else could you ask for?</p>
+            <div class="rc-author">whatsforsupa</div>
+            <div class="rc-meta">Google Review · 1 month ago</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-jacobs-ladder.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">This place is a hidden gem. Best gym in the area. Never too crowded, tons of equipment. The owner is fantastic to deal with if you have questions or need anything. Highly recommend.</p>
+            <div class="rc-author">David Steinbach</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-gym-scene.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Favorite gym hands down. Great staff, great owner, great environment. Membership is very reasonable and more than worth it. Classes are awesome. Don't miss out.</p>
+            <div class="rc-author">Matthew James</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-flag-mezzanine.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Before I signed up, Chris the owner wanted to make sure that River West had the equipment I was looking for based on my existing lifting and cardio routines. Very welcoming and sincere. Equipment variety is good and spaced out appropriately in a neat older building.</p>
+            <div class="rc-author">Ryan Law</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-tires-exterior.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Family owned. Large selection of machines, free weight room, friendly staff. Personal trainers, top notch. Built into an 1800s warehouse, it has character. Don't expect to see the fashionistas here — people come here to work out, not show off their outfits.</p>
+            <div class="rc-author">Candida St. John</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-01.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">I love this gym and highly recommend it to anyone. The owner makes it a point to introduce himself and get to know everyone. It's a great atmosphere and a great gym.</p>
+            <div class="rc-author">Mia Wells</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-02.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Great somewhat small gym but it has all the equipment necessary to get the job done. Friendly staff. The owner Chris is great, always keeping up with everything. I love coming to this gym most mornings and some nights — gotta put in them two-a-days from time to time.</p>
+            <div class="rc-author">Dustin Branch</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-03.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Chris is fantastic. He's an absolute staple of the community.</p>
+            <div class="rc-author">Jack T.</div>
+            <div class="rc-meta">Google Review · 2 months ago</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-04.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Equipment orientation was thorough and exactly what I wanted and needed. The trainer was patient, made sure I understood how to adjust the equipment for my height, and took time to find out what weights were perfect for me to start out with. Excellent start to a new membership.</p>
+            <div class="rc-author">All Dressed Up Costumes</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-05.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Super friendly staff. Even the other patrons are friendly — it's a great atmosphere. Great price with no sign-up fee. I truly have no complaints.</p>
+            <div class="rc-author">Cynthia Dominguez</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-06.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Friendly staff. Well-maintained equipment. Never crowded. Cozy environment that makes me want to work out.</p>
+            <div class="rc-author">Erica Snider</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-07.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Boot camps here are for all levels and can really drive results if you stay committed.</p>
+            <div class="rc-author">Amber Hylton</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-08.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Great neighborhood gym in a vintage Batavia building. Easygoing staff and local owner.</p>
+            <div class="rc-author">Brian Duchek</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-09.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Best gym around. Extremely clean, never overcrowded, and friendly, helpful staff.</p>
+            <div class="rc-author">Sarah Burton</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-10.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Great place to really enjoy your time — just a nice, efficient workout without all the hype.</p>
+            <div class="rc-author">Amy Lynn</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-11.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Great gym with ample space and friendly people. If I lived near River West Family Fitness, this would be my gym.</p>
+            <div class="rc-author">Jason Hoye</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-12.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">$10 day pass is about as reasonable as I've ever seen.</p>
+            <div class="rc-author">Zach</div>
+            <div class="rc-meta">Google Review</div>
+          </div>
+        </div>
+
+        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-13.jpg')">
+          <div class="rc-slide-inner">
+            <div class="rc-quote-mark">&ldquo;</div>
+            <div class="rc-stars">★★★★★</div>
+            <p class="rc-text">Best gym ever. I have a superman build.</p>
+            <div class="rc-author">Max Hawkins</div>
+            <div class="rc-meta">Google Review · 8 months ago</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="rc-nav">
+        <button class="rc-arrow" id="rcPrev" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="rc-dots" id="rcDots"></div>
+        <button class="rc-arrow" id="rcNext" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT CHRIS ──────────────────────────────────────────────── -->
+  <section id="about" class="section">
+    <div class="container about-inner">
+      <div class="about-text fade-in">
+        <p class="about-label">06 — Who's Coaching You</p>
+        <h2>Chris Hylton</h2>
+        <p class="about-title">Owner &amp; Head Coach · Batavia, IL</p>
+        <p>Chris came from a background you wouldn't expect: double major in math and political science, philosophy minor, was planning on law school. What happened instead was he took a job at a gym at 22, found out he was good at it and loved it, bought that gym two years later, and eventually landed here.</p>
+        <p>That analytical mind — the ability to look at a person, understand what they need, and build a plan — is still the engine of everything he does. He doesn't do one-size-fits-all. He doesn't do gimmicks. He does the work, and he expects you to do the same.</p>
+        <ul class="about-creds">
+          <li>20+ years coaching in Batavia</li>
+          <li>Pro athletes trained</li>
+          <li>D-I basketball players</li>
+          <li>Olympic equestrian</li>
+          <li>Thousands of members</li>
+          <li>One address. Always.</li>
+        </ul>
+      </div>
+      <div class="about-image fade-in">
+        <div class="program-video-wrap portrait">
+          <video autoplay muted loop playsinline>
+            <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/f_auto/v1775864079/Chris_Who_is_he_V1_orwf28.mp4" type="video/mp4">
+          </video>
+          <button class="about-unmute" aria-label="Unmute">
+            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="23" y1="9" x2="17" y2="15"/>
+              <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FIND US ──────────────────────────────────────────────────── -->
+  <section id="find-us" class="section">
+    <div class="container">
+      <p class="section-label text-center">07 — Come See It</p>
+      <h2 class="section-title text-center">Come in.<br>Work hard.<br>Do your thing.</h2>
+      <div class="find-us-grid">
+
+        <div class="find-us-block fade-in">
+          <h3>HOURS</h3>
+          <table class="hours-table">
+            <tbody>
+              <tr>
+                <td>Monday – Friday</td>
+                <td>5:00 AM – 1:00 PM</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>4:00 PM – 8:00 PM</td>
+              </tr>
+              <tr>
+                <td>Saturday – Sunday</td>
+                <td>7:00 AM – 1:00 PM</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="hours-vip">1:00 PM – 4:00 PM weekdays are VIP Member Hours</p>
+        </div>
+
+        <div class="find-us-block fade-in">
+          <h3>LOCATION</h3>
+          <address>
+            108 First Street<br>
+            Batavia, IL 60510
+          </address>
+          <a href="tel:6308798889" class="find-phone">630.879.8889</a>
+          <a href="https://maps.google.com/?q=108+First+Street+Batavia+IL+60510"
+             target="_blank" rel="noopener" class="find-directions">
+            Get Directions &nbsp;→
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="logos/riverwest-wordmark-white.svg" alt="River West Family Fitness">
+      </div>
+      <p class="footer-address">108 First Street · Batavia, IL 60510 · 630.879.8889</p>
+      <p class="footer-copy">© 2026 River West Family Fitness. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ── JS ─────────────────────────────────────────────────────── -->
+  <script>
+    // NAV scroll behavior
+    const nav = document.getElementById('nav');
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Intersection Observer — fade-in elements
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger siblings in same parent
+          const siblings = [...entry.target.parentElement.querySelectorAll('.fade-in:not(.visible)')];
+          const idx = siblings.indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, Math.min(idx * 80, 320));
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+    // Reviews carousel
+    (function() {
+      const slides = Array.from(document.querySelectorAll('.rc-slide'));
+      const dotsEl = document.getElementById('rcDots');
+      let current = 0;
+      let timer;
+
+      // Build dots
+      slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'rc-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Review ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(d);
+      });
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        dotsEl.children[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dotsEl.children[current].classList.add('active');
+        resetTimer();
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), 6000);
+      }
+
+      document.getElementById('rcPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('rcNext').addEventListener('click', () => goTo(current + 1));
+
+      // Pause on hover
+      document.getElementById('reviewsCarousel').addEventListener('mouseenter', () => clearInterval(timer));
+      document.getElementById('reviewsCarousel').addEventListener('mouseleave', resetTimer);
+
+      resetTimer();
+    })();
+
+    // Boot camp video unmute toggle
+    const bcUnmuteBtn = document.querySelector('.bc-unmute');
+    if (bcUnmuteBtn) {
+      const bcVideo = bcUnmuteBtn.closest('.program-video-wrap').querySelector('video');
+      const bcLabel = bcUnmuteBtn.querySelector('.bc-unmute-label');
+      bcUnmuteBtn.addEventListener('click', () => {
+        bcVideo.muted = !bcVideo.muted;
+        bcUnmuteBtn.classList.toggle('is-unmuted', !bcVideo.muted);
+        const isMuted = bcVideo.muted;
+        bcUnmuteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
+        if (bcLabel) bcLabel.textContent = isMuted ? 'Unmute' : 'Mute';
+      });
+    }
+
+    // About Chris video unmute toggle
+    const aboutUnmuteBtn = document.querySelector('.about-unmute');
+    if (aboutUnmuteBtn) {
+      const aboutVideo = aboutUnmuteBtn.closest('.program-video-wrap').querySelector('video');
+      aboutUnmuteBtn.addEventListener('click', () => {
+        aboutVideo.muted = !aboutVideo.muted;
+        aboutUnmuteBtn.classList.toggle('is-unmuted', !aboutVideo.muted);
+        aboutUnmuteBtn.setAttribute('aria-label', aboutVideo.muted ? 'Unmute' : 'Mute');
+      });
+    }
+
+    // Personal training video unmute toggle
+    const ptUnmuteBtn = document.querySelector('.pt-unmute');
+    if (ptUnmuteBtn) {
+      const ptVideo = ptUnmuteBtn.closest('.program-video-wrap').querySelector('video');
+      const ptLabel = ptUnmuteBtn.querySelector('.pt-unmute-label');
+      ptUnmuteBtn.addEventListener('click', () => {
+        ptVideo.muted = !ptVideo.muted;
+        ptUnmuteBtn.classList.toggle('is-unmuted', !ptVideo.muted);
+        const isMuted = ptVideo.muted;
+        ptUnmuteBtn.setAttribute('aria-label', isMuted ? 'Unmute' : 'Mute');
+        if (ptLabel) ptLabel.textContent = isMuted ? 'Unmute' : 'Mute';
+      });
+    }
+
+    // Video play/pause toggle
+    document.querySelectorAll('.video-card').forEach(card => {
+      const video  = card.querySelector('video');
+      const btn    = card.querySelector('.video-play');
+
+      btn.addEventListener('click', () => {
+        if (video.paused) {
+          // Pause all others first
+          document.querySelectorAll('.video-card video').forEach(v => {
+            if (v !== video) { v.pause(); v.closest('.video-card').querySelector('.video-play').classList.remove('playing'); }
+          });
+          video.muted = false;
+          video.play();
+          btn.classList.add('playing');
+          btn.innerHTML = '&#9646;&#9646;';
+        } else {
+          video.pause();
+          btn.classList.remove('playing');
+          btn.innerHTML = '&#9654;';
+        }
+      });
+
+      video.addEventListener('pause', () => {
+        btn.classList.remove('playing');
+        btn.innerHTML = '&#9654;';
+      });
+    });
+  </script>
+
+</body>
+</html>

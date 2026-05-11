@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>College Break Pass — Flyer · River West</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --iron:  #1A1A1B;
+    --iron2: #111112;
+    --gold:  #C5A059;
+    --gold2: #b08f47;
+    --slate: #E5E5E5;
+    --white: #FFFFFF;
+    --paper: #FAF7F0; /* warm off-white */
+    --ink:   #15161A; /* near-black ink */
+    --ff-display: 'Bebas Neue', sans-serif;
+    --ff-head:    'Montserrat', sans-serif;
+    --ff-body:    'Inter', sans-serif;
+  }
+  *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: #2a2a2c;
+    font-family: var(--ff-body);
+    -webkit-font-smoothing: antialiased;
+    color: var(--ink);
+  }
+  .toolbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: #1a1a1b; color: #e5e5e5;
+    padding: 0.75rem 1.25rem;
+    font-family: var(--ff-head);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 10;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .toolbar button {
+    background: var(--gold);
+    color: var(--iron);
+    border: none;
+    padding: 0.55rem 1rem;
+    font-family: var(--ff-head);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .toolbar button:hover { background: var(--white); }
+  .stage {
+    min-height: 100vh;
+    padding: 4rem 1.5rem 3rem;
+    display: grid;
+    place-items: center;
+  }
+
+  /* ─── FLYER PAGE (8.5 x 11 letter) ────────────────────── */
+  .flyer {
+    width: 8.5in;
+    height: 11in;
+    background: var(--paper);
+    color: var(--ink);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    display: grid;
+    grid-template-rows: 4.6in 1fr auto;
+  }
+
+  /* ── HERO IMAGE BLOCK ── */
+  .flyer-hero {
+    position: relative;
+    background:
+      linear-gradient(105deg, rgba(21,22,26,0.92) 0%, rgba(21,22,26,0.55) 45%, rgba(21,22,26,0.05) 75%, rgba(21,22,26,0.35) 100%),
+      url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/student-promo/rw-student-break-hero') right top/cover no-repeat;
+    color: var(--white);
+    padding: 0.55in 0.55in 0.45in;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .flyer-brand {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .flyer-wordmark {
+    font-family: var(--ff-display);
+    font-size: 30px;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .flyer-eyebrow-tr {
+    font-family: var(--ff-head);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: right;
+    line-height: 1.5;
+  }
+  .flyer-eyebrow-tr span { display: block; color: rgba(255,255,255,0.5); }
+
+  .flyer-hero-text {
+    max-width: 5.5in;
+  }
+  .flyer-eyebrow {
+    font-family: var(--ff-head);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .flyer-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 2px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin-right: 12px;
+  }
+  .flyer-headline {
+    font-family: var(--ff-display);
+    font-size: 84px;
+    line-height: 0.86;
+    letter-spacing: 0.005em;
+    color: var(--white);
+  }
+  .flyer-headline em { font-style: normal; color: var(--gold); }
+  .flyer-sub {
+    font-family: var(--ff-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.78);
+    margin-top: 14px;
+    line-height: 1.45;
+    max-width: 4.5in;
+  }
+
+  /* ── MIDDLE: PRICE + WHY ── */
+  .flyer-body {
+    display: grid;
+    grid-template-columns: 3in 1fr;
+    border-top: 1px solid rgba(21,22,26,0.1);
+  }
+  .flyer-price-col {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.5in 0.45in;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .flyer-price-label {
+    font-family: var(--ff-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .flyer-price {
+    font-family: var(--ff-display);
+    font-size: 130px;
+    line-height: 0.9;
+    color: var(--white);
+    letter-spacing: 0.005em;
+  }
+  .flyer-price sup {
+    font-family: var(--ff-head);
+    font-size: 30px;
+    font-weight: 700;
+    vertical-align: super;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .flyer-price-meta {
+    font-family: var(--ff-head);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-top: 6px;
+  }
+  .flyer-price-meta strong { color: var(--gold); }
+  .flyer-divider-thin {
+    width: 36px; height: 2px;
+    background: var(--gold);
+    margin-top: 14px;
+  }
+  .flyer-fine-inset {
+    font-family: var(--ff-body);
+    font-size: 9px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+    margin-top: 16px;
+    max-width: 2in;
+  }
+
+  .flyer-why-col {
+    padding: 0.5in 0.45in 0.45in;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .flyer-why-eyebrow {
+    font-family: var(--ff-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .flyer-why-head {
+    font-family: var(--ff-display);
+    font-size: 30px;
+    line-height: 0.95;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .flyer-why-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .flyer-why-row {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 8px;
+    align-items: start;
+  }
+  .flyer-why-num {
+    font-family: var(--ff-display);
+    font-size: 22px;
+    line-height: 1;
+    color: var(--gold);
+  }
+  .flyer-why-title {
+    font-family: var(--ff-head);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+  .flyer-why-text {
+    font-size: 11px;
+    line-height: 1.45;
+    color: rgba(21,22,26,0.7);
+  }
+
+  /* ── FOOTER STRIPE ── */
+  .flyer-foot {
+    background: var(--gold);
+    color: var(--ink);
+    padding: 0.32in 0.55in;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: center;
+  }
+  .flyer-foot-cta {
+    font-family: var(--ff-display);
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+  .flyer-foot-meta {
+    font-family: var(--ff-head);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    text-align: right;
+  }
+  .flyer-foot-meta strong {
+    display: block;
+    font-family: var(--ff-display);
+    font-size: 22px;
+    line-height: 1;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .toolbar { display: none; }
+    .stage { padding: 0; min-height: auto; background: none; }
+    .flyer {
+      box-shadow: none;
+      width: 100%;
+      height: 100vh;
+      page-break-after: always;
+    }
+    @page { size: letter portrait; margin: 0; }
+    html, body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span>College Break Pass · Front-Desk Flyer · 8.5 × 11"</span>
+    <button onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <div class="stage">
+    <div class="flyer">
+
+      <!-- HERO BLOCK -->
+      <header class="flyer-hero">
+        <div class="flyer-brand">
+          <span class="flyer-wordmark">RIVER WEST</span>
+          <span class="flyer-eyebrow-tr">For College Students<span>Batavia · EST. 1989</span></span>
+        </div>
+
+        <div class="flyer-hero-text">
+          <p class="flyer-eyebrow">The Break Pass</p>
+          <h1 class="flyer-headline">Home For Break.<br><em>The Gym Never Left.</em></h1>
+          <p class="flyer-sub">A discounted year-round membership for students away at school — built for the weeks you're actually home.</p>
+        </div>
+      </header>
+
+      <!-- BODY -->
+      <section class="flyer-body">
+
+        <!-- Price -->
+        <div class="flyer-price-col">
+          <span class="flyer-price-label">The Deal</span>
+          <span class="flyer-price"><sup>$</sup>229</span>
+          <span class="flyer-price-meta"><strong>Entire Year</strong> · One Payment</span>
+          <div class="flyer-divider-thin"></div>
+          <p class="flyer-fine-inset">*Proof of enrollment at a non-local institution required.</p>
+        </div>
+
+        <!-- Why -->
+        <div class="flyer-why-col">
+          <p class="flyer-why-eyebrow">Why it works</p>
+          <h2 class="flyer-why-head">Pay for the time you're<br>actually home.</h2>
+
+          <div class="flyer-why-list">
+            <div class="flyer-why-row">
+              <span class="flyer-why-num">01</span>
+              <div>
+                <p class="flyer-why-title">One payment. Every break covered.</p>
+                <p class="flyer-why-text">Winter, spring, summer — and every long weekend in between. No monthly draft, no auto-renew.</p>
+              </div>
+            </div>
+            <div class="flyer-why-row">
+              <span class="flyer-why-num">02</span>
+              <div>
+                <p class="flyer-why-title">Full gym. Full hours.</p>
+                <p class="flyer-why-text">Same gym floor and hours as any member — racks, free weights, cardio, every machine you'd use on your own.</p>
+              </div>
+            </div>
+            <div class="flyer-why-row">
+              <span class="flyer-why-num">03</span>
+              <div>
+                <p class="flyer-why-title">Built for the way you actually train.</p>
+                <p class="flyer-why-text">A real gym that knows your name on day two — not a chain you'll never use.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER STRIPE -->
+      <footer class="flyer-foot">
+        <span class="flyer-foot-cta">SIGN UP AT THE FRONT DESK →</span>
+        <div class="flyer-foot-meta">
+          <strong>630.879.8889</strong>
+          108 First Street · Batavia, IL
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+</body>
+</html>

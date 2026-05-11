@@ -1,0 +1,30 @@
+# ── Secrets / scripts containing API keys (kept local only) ──
+upload-testimonials.mjs
+upload-student-promo.mjs
+upload-web-pics.mjs
+.env
+.env.*
+
+# ── Node ──
+node_modules/
+package-lock.json
+
+# ── Raw image / asset sources (all served from Cloudinary) ──
+pics/
+assets/
+testimonial-imags-2/
+generated_imgs/
+
+# ── Working docs / data not part of the public site ──
+*.md
+!README.md
+*.csv
+*.json
+!package.json
+riverwest-brand-guide-2026.html
+
+# ── OS / editor ──
+.DS_Store
+.vscode/
+.idea/
+*.swp
