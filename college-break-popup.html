@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-admin>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -309,6 +309,8 @@
   backdrop.addEventListener('click', e => { if (e.target === backdrop) dismiss(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') dismiss(); });
 </script>
+
+<script src="admin.js" defer></script>
 
 </body>
 </html>
