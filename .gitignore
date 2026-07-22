@@ -22,6 +22,8 @@ generated_imgs/
 *.json
 !package.json
 riverwest-brand-guide-2026.html
+merch.html
+site-plan.html
 
 # ── OS / editor ──
 .DS_Store
