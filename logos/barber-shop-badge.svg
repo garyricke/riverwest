@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240" role="img" aria-label="The Barber Shop, Batavia Illinois">
+  <defs>
+    <clipPath id="bbPole"><rect x="110" y="82" width="20" height="76" rx="10"/></clipPath>
+    <path id="bbArcTop" d="M34 120 A86 86 0 0 1 206 120" fill="none"/>
+    <path id="bbArcBot" d="M42 120 A78 78 0 0 0 198 120" fill="none"/>
+  </defs>
+  <style>
+    .t { fill:#C5A059; font-family:'Montserrat','Helvetica Neue',Arial,sans-serif; font-weight:700; letter-spacing:2.4px; }
+    .e { fill:#C5A059; font-family:'Oswald','Arial Narrow',Arial,sans-serif; font-weight:600; letter-spacing:1px; }
+  </style>
+  <circle cx="120" cy="120" r="115" fill="none" stroke="#C5A059" stroke-width="2"/>
+  <circle cx="120" cy="120" r="107" fill="none" stroke="#C5A059" stroke-width="1" opacity=".55"/>
+  <text class="t" font-size="15"><textPath href="#bbArcTop" startOffset="50%" text-anchor="middle">THE BARBER SHOP</textPath></text>
+  <text class="t" font-size="10.5"><textPath href="#bbArcBot" startOffset="50%" text-anchor="middle">BATAVIA · ILLINOIS</textPath></text>
+  <path fill="#C5A059" d="M31 120 l4.5 -5 4.5 5 -4.5 5 z"/>
+  <path fill="#C5A059" d="M200 120 l4.5 -5 4.5 5 -4.5 5 z"/>
+  <circle fill="#C5A059" cx="120" cy="70" r="4"/>
+  <rect fill="#C5A059" x="105" y="73" width="30" height="8" rx="3"/>
+  <rect fill="#C5A059" x="105" y="159" width="30" height="8" rx="3"/>
+  <circle fill="#C5A059" cx="120" cy="170" r="4"/>
+  <rect fill="#EDE6D6" x="110" y="82" width="20" height="76" rx="10"/>
+  <g clip-path="url(#bbPole)">
+    <g transform="rotate(32 120 120)" fill="#C5A059">
+      <rect x="82" y="58" width="7" height="124"/>
+      <rect x="98" y="58" width="7" height="124"/>
+      <rect x="114" y="58" width="7" height="124"/>
+      <rect x="130" y="58" width="7" height="124"/>
+      <rect x="146" y="58" width="7" height="124"/>
+    </g>
+  </g>
+  <rect fill="none" stroke="#1A1A1B" stroke-width="1.5" x="110" y="82" width="20" height="76" rx="10"/>
+</svg>

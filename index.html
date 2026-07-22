@@ -959,14 +959,50 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.35);
-      font-size: 2rem;
-      color: var(--white);
-      transition: background 0.2s;
+      background: rgba(0,0,0,0.30);
+      border: 0;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
     }
-    .video-play:hover { background: rgba(0,0,0,0.15); }
+    .video-play .vp-badge {
+      width: clamp(46px, 18%, 62px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.42);
+      border: 1.5px solid rgba(255,255,255,0.85);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .video-play svg { width: 42%; height: 42%; display: block; }
+    .video-play .vp-play { margin-left: 8%; }   /* optically center the triangle */
+    .video-play .vp-pause { display: none; }
+    .video-play.playing .vp-play { display: none; }
+    .video-play.playing .vp-pause { display: block; }
+    .video-play:hover { background: rgba(0,0,0,0.14); }
+    .video-play:hover .vp-badge { transform: scale(1.08); background: var(--gold); color: var(--iron); border-color: var(--gold); }
     .video-play.playing { opacity: 0; }
     .video-wrap:hover .video-play.playing { opacity: 1; }
+
+    /* Video strip carousel arrows */
+    .video-carousel { position: relative; }
+    .video-arrow {
+      position: absolute; top: 42%; transform: translateY(-50%); z-index: 4;
+      width: 46px; height: 46px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.18); background: rgba(17,17,18,0.74);
+      -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+      color: rgba(255,255,255,0.9); cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s, opacity 0.2s;
+    }
+    .video-arrow svg { width: 20px; height: 20px; }
+    .video-arrow:hover { background: var(--gold); color: var(--iron); border-color: var(--gold); }
+    .video-arrow-prev { left: clamp(0.4rem, 2vw, 1.4rem); }
+    .video-arrow-next { right: clamp(0.4rem, 2vw, 1.4rem); }
+    .video-arrow[disabled] { opacity: 0; pointer-events: none; }
+    @media (max-width: 640px) { .video-arrow { display: none; } }
     .video-caption {
       font-family: var(--ff-head);
       font-size: 0.68rem;
@@ -1335,6 +1371,225 @@
       .about-creds { grid-template-columns: 1fr; }
     }
   </style>
+
+  <!-- ── ADDITIONS: lead capture, challenge funnel, FAQ, barber, socials ── -->
+  <style>
+    /* Nav + hero primary CTA */
+    .nav-cta {
+      display:inline-flex; align-items:center; gap:.4rem;
+      background:var(--gold); color:var(--iron);
+      font-family:var(--ff-head); font-weight:700; font-size:11px;
+      letter-spacing:.14em; text-transform:uppercase;
+      padding:.62rem 1rem; border-radius:4px;
+      transition:background .18s, transform .18s;
+    }
+    .nav-cta:hover { background:#fff; transform:translateY(-1px); }
+    .hero-cta-primary {
+      display:inline-flex; align-items:center; gap:.6rem;
+      background:var(--gold); color:var(--iron);
+      font-family:var(--ff-head); font-weight:700; font-size:14px;
+      letter-spacing:.1em; text-transform:uppercase;
+      padding:1.05rem 1.9rem; border-radius:5px;
+      transition:background .18s, transform .18s;
+    }
+    .hero-cta-primary:hover { background:#fff; transform:translateY(-2px); }
+    .hero-cta-secondary {
+      display:block; margin-top:1rem;
+      font-size:13px; letter-spacing:.04em; color:rgba(255,255,255,.72);
+    }
+    .hero-cta-secondary a { color:#fff; border-bottom:1px solid rgba(255,255,255,.4); padding-bottom:1px; }
+
+    /* Challenge badge tweak on boot-camp $99 card */
+    .bc-price-card .bc-price-badge.is-challenge { background:var(--gold); color:var(--iron); }
+
+    /* ── START / conversion hub ── */
+    #start { background:var(--iron2); }
+    .start-grid {
+      display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(2rem,5vw,4rem);
+      align-items:start;
+    }
+    @media (max-width:860px){ .start-grid { grid-template-columns:1fr; } }
+    .start-copy h2 { margin-top:.5rem; }
+    .start-lede { color:rgba(229,229,229,.8); font-size:1.08rem; margin:1.2rem 0 1.8rem; max-width:44ch; }
+    .start-ladder { list-style:none; display:grid; gap:.9rem; margin-top:.5rem; }
+    .start-step {
+      display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:baseline;
+      padding:1rem 0; border-top:1px solid rgba(255,255,255,.09);
+    }
+    .start-step-n {
+      font-family:var(--ff-display); font-size:1.9rem; color:var(--gold); line-height:1;
+    }
+    .start-step h4 { font-family:var(--ff-head); font-weight:700; color:#fff; font-size:1.02rem; letter-spacing:.01em; }
+    .start-step p { font-size:.92rem; color:rgba(229,229,229,.62); margin-top:.2rem; }
+    .start-step .price { color:var(--gold); font-weight:600; }
+
+    .start-form-card {
+      background:var(--iron); border:1px solid rgba(255,255,255,.1);
+      border-radius:14px; padding:clamp(1.5rem,3vw,2.2rem);
+    }
+    .start-form-card .form-eyebrow {
+      font-family:var(--ff-head); font-weight:700; font-size:11px; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--gold);
+    }
+    .start-form-card h3 {
+      font-family:var(--ff-display); font-weight:400; color:#fff;
+      font-size:clamp(1.9rem,4vw,2.5rem); line-height:1; margin:.5rem 0 1.3rem;
+    }
+    .ff-field { margin-bottom:.9rem; }
+    .ff-field label {
+      display:block; font-family:var(--ff-head); font-weight:600; font-size:10.5px;
+      letter-spacing:.14em; text-transform:uppercase; color:rgba(229,229,229,.55); margin-bottom:.4rem;
+    }
+    .ff-input, .ff-select, .ff-textarea {
+      width:100%; background:var(--iron2); border:1px solid rgba(255,255,255,.15);
+      color:#fff; font-family:var(--ff-body); font-size:15px; padding:.8rem .9rem; border-radius:6px;
+      transition:border-color .15s;
+    }
+    .ff-textarea { resize:vertical; min-height:70px; }
+    .ff-input:focus, .ff-select:focus, .ff-textarea:focus { outline:none; border-color:var(--gold); }
+    .ff-select { appearance:none; -webkit-appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right .9rem center; padding-right:2.2rem; }
+    .ff-row { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+    @media (max-width:460px){ .ff-row { grid-template-columns:1fr; } }
+    .ff-submit {
+      width:100%; margin-top:.4rem; background:var(--gold); color:var(--iron);
+      border:none; cursor:pointer; font-family:var(--ff-head); font-weight:700; font-size:13px;
+      letter-spacing:.14em; text-transform:uppercase; padding:1rem; border-radius:6px;
+      transition:background .18s;
+    }
+    .ff-submit:hover { background:#fff; }
+    .ff-fine { font-size:12px; color:rgba(229,229,229,.4); margin-top:.9rem; line-height:1.5; }
+    .ff-honey { position:absolute; left:-9999px; }
+    .ff-success { display:none; text-align:center; padding:1rem 0; }
+    .ff-success.is-visible { display:block; }
+    .ff-success .check {
+      width:52px; height:52px; border-radius:50%; border:2px solid var(--gold);
+      display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; color:var(--gold);
+    }
+    .ff-success h3 { margin:0 0 .5rem; }
+    .ff-success p { color:rgba(229,229,229,.7); font-size:.95rem; }
+
+    /* ── FAQ ── */
+    .faq-list { max-width:760px; margin:0 auto; border-top:1px solid rgba(255,255,255,.09); }
+    .faq-item { border-bottom:1px solid rgba(255,255,255,.09); }
+    .faq-item > summary {
+      list-style:none; cursor:pointer; padding:1.25rem 0;
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      font-family:var(--ff-head); font-weight:600; font-size:1.06rem; color:#fff;
+    }
+    .faq-item > summary::-webkit-details-marker { display:none; }
+    .faq-item .faq-chevron { flex:none; width:20px; height:20px; color:var(--gold); transition:transform .22s; }
+    .faq-item[open] .faq-chevron { transform:rotate(180deg); }
+    .faq-item .faq-answer { padding:0 0 1.4rem; color:rgba(229,229,229,.72); font-size:.98rem; max-width:66ch; }
+    .faq-item .faq-answer a { color:var(--gold); }
+
+    /* ── Map in find-us ── */
+    .find-map { grid-column:1 / -1; margin-top:1.2rem; }
+    .find-map iframe {
+      width:100%; height:340px; border:0; border-radius:12px;
+      filter:grayscale(.35) contrast(1.05); display:block;
+    }
+
+    /* ── Barber & Barbell ── */
+    #barber { background:var(--iron2); border-top:1px solid rgba(255,255,255,.06); }
+    .barber-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+    @media (max-width:820px){ .barber-grid { grid-template-columns:1fr; } }
+    .barber-content h2 { font-size:clamp(1.9rem,4vw,2.9rem); margin:.5rem 0 1rem; }
+    .barber-content p { color:rgba(229,229,229,.78); margin-bottom:1rem; max-width:48ch; }
+    .barber-pull { font-family:var(--ff-display); font-weight:400; font-size:clamp(1.4rem,3vw,1.9rem);
+      color:#fff; line-height:1.1; margin:1.4rem 0; }
+    .barber-facts { display:flex; flex-wrap:wrap; gap:1.6rem; margin-top:1.4rem; }
+    .barber-fact .bf-label { font-family:var(--ff-head); font-weight:700; font-size:10px; letter-spacing:.16em;
+      text-transform:uppercase; color:rgba(229,229,229,.45); display:block; margin-bottom:.25rem; }
+    .barber-fact .bf-val { color:#fff; font-size:1.02rem; }
+    .barber-fact .bf-val a { color:var(--gold); }
+    .barber-image img { border-radius:12px; width:100%; height:100%; object-fit:cover; }
+    .barber-media { border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 24px 60px rgba(0,0,0,.5); background:#000; }
+    .barber-video { display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; }
+    @media (max-width:820px){ .barber-media { max-width:520px; margin:0 auto; } }
+
+    /* Power Precision — logo + photo strip */
+    .ppt-logo { width:clamp(118px,15vw,148px); height:auto; display:block; margin-bottom:1.2rem; }
+    .ppt-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(.7rem,1.5vw,1.1rem);
+      margin-top:clamp(1.8rem,4vw,2.6rem); }
+    @media (max-width:640px){ .ppt-gallery { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; } }
+    .ppt-shot { position:relative; margin:0; border-radius:12px; overflow:hidden; aspect-ratio:4/3;
+      border:1px solid rgba(255,255,255,.08); }
+    .ppt-shot img { width:100%; height:100%; object-fit:cover; display:block; }
+    .ppt-shot figcaption { position:absolute; left:0; right:0; bottom:0; padding:1.4rem .9rem .7rem;
+      font-family:var(--ff-head); font-weight:700; font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+      color:#fff; background:linear-gradient(to top, rgba(0,0,0,.78), rgba(0,0,0,0)); }
+
+    /* Barber badge / logo */
+    .barber-badge { width:clamp(148px,20vw,184px); height:auto; display:block; margin-bottom:1.4rem; }
+    .barber-badge .bb-ring { fill:none; stroke:var(--gold); }
+    .barber-badge .bb-text { fill:var(--gold); font-family:var(--ff-head); font-weight:700;
+      letter-spacing:.16em; text-transform:uppercase; }
+    .barber-badge .bb-est { fill:var(--gold); font-family:var(--ff-display); letter-spacing:.06em; }
+    .barber-badge .bb-pole-body { fill:var(--cream); }
+    .barber-badge .bb-stripe { fill:var(--gold); }
+    .barber-badge .bb-outline { fill:none; stroke:var(--iron); }
+    .barber-badge .bb-metal { fill:var(--gold); }
+
+    /* Google reviews carousel */
+    .barber-reviews { margin-top:clamp(3rem,7vw,5rem); }
+    .brv-head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      gap:1rem; margin-bottom:1.4rem; }
+    .brv-title { display:flex; align-items:center; gap:.7rem; }
+    .brv-title .brv-g { width:22px; height:22px; flex:none; }
+    .brv-title h3 { font-family:var(--ff-head); font-weight:600; font-size:1.05rem; color:#fff; margin:0;
+      letter-spacing:.01em; }
+    .brv-title .brv-sub { display:block; font-size:.82rem; color:rgba(229,229,229,.55); margin-top:.15rem; }
+    .brv-score { display:flex; align-items:center; gap:.55rem; }
+    .brv-score .brv-num { font-family:var(--ff-display); font-size:1.9rem; color:#fff; line-height:1; }
+    .brv-stars { display:inline-flex; gap:2px; color:var(--gold); }
+    .brv-stars svg { width:15px; height:15px; }
+    .brv-nav { display:flex; gap:.5rem; }
+    .brv-nav button { width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.16);
+      background:transparent; color:rgba(255,255,255,.7); cursor:pointer; display:flex; align-items:center;
+      justify-content:center; transition:color .18s, border-color .18s, background .18s; }
+    .brv-nav button:hover { color:var(--iron); background:var(--gold); border-color:var(--gold); }
+    .brv-nav button svg { width:18px; height:18px; }
+
+    .brv-track { display:flex; gap:1.2rem; overflow-x:auto;
+      padding:.4rem .2rem 1.2rem; margin:0 -.2rem;
+      scrollbar-width:none; -ms-overflow-style:none; }
+    .brv-track::-webkit-scrollbar { display:none; }
+    .brv-card { flex:0 0 clamp(280px,80vw,360px);
+      background:rgba(255,255,255,.028); border:1px solid rgba(255,255,255,.08); border-radius:14px;
+      padding:1.5rem 1.5rem 1.4rem; display:flex; flex-direction:column; }
+    .brv-card-top { display:flex; align-items:center; gap:.8rem; margin-bottom:.9rem; }
+    .brv-avatar { width:40px; height:40px; border-radius:50%; flex:none; display:flex; align-items:center;
+      justify-content:center; font-family:var(--ff-head); font-weight:700; font-size:.95rem; color:var(--iron);
+      background:var(--gold); }
+    .brv-who { min-width:0; }
+    .brv-who .brv-name { color:#fff; font-size:.95rem; font-weight:600; }
+    .brv-who .brv-meta { color:rgba(229,229,229,.5); font-size:.78rem; margin-top:.1rem; }
+    .brv-card .brv-cardstars { color:var(--gold); display:inline-flex; gap:2px; margin-bottom:.7rem; }
+    .brv-card .brv-cardstars svg { width:14px; height:14px; }
+    .brv-body { color:rgba(229,229,229,.82); font-size:.94rem; line-height:1.6; margin:0; }
+    .brv-foot { margin-top:1rem; display:flex; align-items:center; gap:.4rem;
+      font-size:.74rem; color:rgba(229,229,229,.4); }
+    .brv-foot svg { width:13px; height:13px; }
+    .brv-cta { margin-top:1.6rem; }
+    .brv-cta a { font-family:var(--ff-head); font-weight:700; font-size:.8rem; letter-spacing:.14em;
+      text-transform:uppercase; color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(197,160,89,.4);
+      padding-bottom:2px; transition:color .15s, border-color .15s; }
+    .brv-cta a:hover { color:#fff; border-color:#fff; }
+    @media (max-width:640px){ .brv-nav { display:none; } }
+
+    /* ── Footer social ── */
+    .footer-social { display:flex; gap:.9rem; justify-content:center; margin:1.2rem 0 .4rem; }
+    .footer-social a {
+      width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.16);
+      display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.7);
+      transition:color .18s, border-color .18s, background .18s;
+    }
+    .footer-social a:hover { color:var(--iron); background:var(--gold); border-color:var(--gold); }
+    .footer-social svg { width:18px; height:18px; }
+  </style>
 </head>
 
 <body>
@@ -1350,6 +1605,7 @@
         <div><strong>Sat – Sun</strong> &nbsp;7:00 AM – 1:00 PM</div>
       </div>
       <a href="tel:6308798889" class="nav-phone">630.879.8889</a>
+      <a href="#start" class="nav-cta">Free Workout</a>
     </div>
   </nav>
 
@@ -1357,7 +1613,7 @@
   <section id="hero">
     <video class="hero-video" autoplay muted loop playsinline
       poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-tire-flip-building-hero-wide">
-      <source src="https://player.vimeo.com/progressive_redirect/playback/798009582/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=8190fdfedb5c43039ef4e7f95a0c02620e271a698bf7c4f73d33fde599b96c98" type="video/mp4">
+      <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-798009582.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -1365,8 +1621,8 @@
       <h1 class="hero-headline">IT'S YOU<br>AGAINST<br>YOURSELF.</h1>
       <p class="hero-sub">One owner. One address. Twenty years of showing up.</p>
       <div class="hero-cta-block">
-        <a href="tel:6308798889" class="hero-cta-phone">630.879.8889</a>
-        <span class="hero-cta-address">108 First Street<br>Batavia, IL 60510</span>
+        <a href="#start" class="hero-cta-primary">Claim Your Free First Workout &nbsp;→</a>
+        <span class="hero-cta-secondary">No contract. No sign-up fee. Just come train. &nbsp;·&nbsp; <a href="tel:6308798889">630.879.8889</a></span>
       </div>
     </div>
     <div class="hero-scroll"><span>SCROLL</span></div>
@@ -1491,7 +1747,7 @@
 
         <div class="program-video-wrap fade-in">
           <video autoplay muted loop playsinline>
-            <source src="https://player.vimeo.com/progressive_redirect/playback/1127875354/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=642d65d46ed80834129f2d50e36077b4391f1ecc6adbb461fbd968f0d296bcf8" type="video/mp4">
+            <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-1127875354.mp4" type="video/mp4">
           </video>
           <button class="bc-unmute" aria-label="Unmute">
             <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1538,10 +1794,10 @@
               <div class="bc-price-desc">8 Class Package · Non-Riverwest Member · Use anytime</div>
             </div>
             <div class="bc-price-card">
-              <div class="bc-price-badge">First Timer Special</div>
+              <div class="bc-price-badge is-challenge">The 8-Session Challenge</div>
               <div class="bc-price-amount"><sup>$</sup>99</div>
-              <div class="bc-price-label">8 Classes</div>
-              <div class="bc-price-desc">For first timers — get through eight and see for yourself</div>
+              <div class="bc-price-label">8 Classes · First-Timers</div>
+              <div class="bc-price-desc">Get through eight and something shifts. <a href="#start" style="color:var(--gold);border-bottom:1px solid rgba(197,160,89,.4)">Start the challenge →</a></div>
             </div>
           </div>
 
@@ -1591,7 +1847,7 @@
           <div class="program-image">
             <div class="program-video-wrap portrait">
               <video autoplay muted loop playsinline>
-                <source src="https://player.vimeo.com/progressive_redirect/playback/798063613/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=e74fc89bab18e0ae4e98cc19b5c15092a8540408ce50ca62a25d6ab987eeb5d0" type="video/mp4">
+                <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-798063613.mp4" type="video/mp4">
               </video>
               <button class="pt-unmute" aria-label="Unmute">
                 <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1746,90 +2002,94 @@
       <h2 class="section-title text-center">See it for yourself.</h2>
       <p class="section-intro text-center">Real training. Real people. No production crew.</p>
     </div>
-    <div class="video-scroll-wrap">
+    <div class="video-carousel">
+      <button class="video-arrow video-arrow-prev" data-vid-prev type="button" aria-label="Previous videos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div class="video-scroll-wrap">
       <div class="video-scroll">
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-tire-flip-push-outdoor-action" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941435825/rendition/1080p/file.mp4?loc=external&amp;log_user=0&amp;signature=3b1a1bcfbfbc6bfb67ec22815e9ff4a4bca7315bac1b52993580dc2fe9f93ab2" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-flipping-tires" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941435825.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Flipping Tires</p>
         </div>
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-jacobs-ladder-assault-bike-brick-arches" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941435821/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=3b1a1bcfbfbc6bfb67ec22815e9ff4a4bca7315bac1b52993580dc2fe9f93ab2" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-ball-slam" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941435821.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Boot Camp — Ball Slam</p>
         </div>
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-kettlebell-row-member-silhouette" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941440786/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=c840fc6072c3f0236886cd3ba7649cef4a4b893aac5ab65f8d507f2723bd10c7" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-tracy" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941440786.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Tracy's First Boot Camp</p>
         </div>
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-wide-floor-rowers-ski-ergs" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941435796/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=42b19466bd5aad68e335b14a9982968c09d9f5759cbc68ecd1ed2a9adca547e0" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-wednesday" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941435796.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Wednesday Boot Camp</p>
         </div>
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-stairmaster-row-hardwood-timber" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941441092/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=822bb13cd556f45a12cec1acf7d1e55c74b8cdbdc021c8831d75be2436c3ad2f" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-exercise" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941441092.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Exercise: The Greatest Drug</p>
         </div>
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-bench-row-mirror-stone-wall" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941440759/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=dd5dd664aba04028bbe7fb8fe4d1d2e19ff63f27e38df9179a979cf7de90f263" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-bench" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941440759.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Mastering Bench Press</p>
         </div>
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-cardio-floor-stairmaster-brick" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941441656/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=7d08869fb5a4f3a22ba102bc8c2dd65677d97a37d49d26ac100dcec9e49fa4ed" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-anyone" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941441656.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Anyone Can Do This</p>
         </div>
 
         <div class="video-card fade-in">
           <div class="video-wrap">
-            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-flag-and-mural-wide" preload="none" playsinline muted loop>
-              <source src="https://player.vimeo.com/progressive_redirect/playback/941435786/rendition/1080p/file.mp4%20%281080p%29.mp4?loc=external&amp;log_user=0&amp;signature=68713f2cd49edebe2fba580576ea4f79a44f4b49223010223485dbef32205f57" type="video/mp4">
+            <video poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_640/riverwest/web/vposter-bullet-time" preload="none" playsinline muted loop>
+              <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-941435786.mp4" type="video/mp4">
             </video>
-            <button class="video-play" aria-label="Play">&#9654;</button>
+            <button class="video-play" aria-label="Play" type="button"><span class="vp-badge"><svg class="vp-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="vp-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg></span></button>
           </div>
           <p class="video-caption">Boot Camp — Bullet Time</p>
         </div>
 
       </div>
+      </div>
+      <button class="video-arrow video-arrow-next" data-vid-next type="button" aria-label="More videos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
     </div>
   </section>
 
@@ -2093,6 +2353,126 @@
     </div>
   </section>
 
+  <!-- ── START / CONVERSION HUB ──────────────────────────────────── -->
+  <section id="start" class="section">
+    <div class="container">
+      <div class="start-grid">
+        <div class="start-copy fade-in">
+          <p class="section-label">Start Here</p>
+          <h2>Your first<br>workout's<br>on us.</h2>
+          <p class="start-lede">Walk in, train, and see if it's your kind of place. No card, no contract, no pitch. If it fits, here's how it goes from there.</p>
+          <ol class="start-ladder">
+            <li class="start-step">
+              <span class="start-step-n">1</span>
+              <div><h4>Free first workout</h4><p>Come in and train — on the floor or drop into a Boot Camp class. Free. Just tell us you're coming.</p></div>
+            </li>
+            <li class="start-step">
+              <span class="start-step-n">2</span>
+              <div><h4>The 8-Session Challenge <span class="price">· $99</span></h4><p>Eight Boot Camp sessions for first-timers. Get through eight and something shifts — you start gauging yourself, and the work becomes its own motivation.</p></div>
+            </li>
+            <li class="start-step">
+              <span class="start-step-n">3</span>
+              <div><h4>Join <span class="price">· from $29/mo</span></h4><p>Month-to-month or annual. No sign-up fee on annual, and you get a free month. Cancel any time.</p></div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="start-form-card fade-in">
+          <form name="free-workout" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="freeWorkoutForm">
+            <input type="hidden" name="form-name" value="free-workout">
+            <p class="ff-honey"><label>Don't fill this out if you're human: <input name="bot-field"></label></p>
+            <p class="form-eyebrow">Claim your free workout</p>
+            <h3>Come train with us.</h3>
+            <div class="ff-field">
+              <label for="fw-name">Name</label>
+              <input class="ff-input" id="fw-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="ff-row">
+              <div class="ff-field">
+                <label for="fw-email">Email</label>
+                <input class="ff-input" id="fw-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="ff-field">
+                <label for="fw-phone">Phone</label>
+                <input class="ff-input" id="fw-phone" name="phone" type="tel" autocomplete="tel">
+              </div>
+            </div>
+            <div class="ff-field">
+              <label for="fw-goal">What are you after?</label>
+              <select class="ff-select" id="fw-goal" name="goal">
+                <option value="">Choose one…</option>
+                <option>Get stronger</option>
+                <option>Boot Camp classes</option>
+                <option>Personal training</option>
+                <option>Just getting back into it</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <button class="ff-submit" type="submit">Claim My Free Workout</button>
+            <p class="ff-fine">We'll reach out to set up your first session. No spam, no contract, no obligation.</p>
+          </form>
+          <div class="ff-success" id="fwSuccess">
+            <div class="check"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3 style="font-family:var(--ff-display);font-weight:400;font-size:2rem;color:#fff;margin-bottom:.5rem">You're in.</h3>
+            <p>We got it. Someone from River West will reach out to set up your free workout. See you on the floor.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ─────────────────────────────────────────────────────── -->
+  <section id="faq" class="section section-dark-alt">
+    <div class="container">
+      <p class="section-label text-center">Questions</p>
+      <h2 class="section-title text-center">Before you come in.</h2>
+      <div class="faq-list fade-in">
+        <details class="faq-item">
+          <summary>Do I need to be in shape to start?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">No. Everything scales. Boot Camp's Saturday interval class lets you go at whatever pace you can sustain, and personal training is built around your baseline — not someone else's. You start where you are.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Is there a contract?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">No contracts. Monthly is cancel-any-time. Annual saves you money and includes a free month with no sign-up fee. Cancellation is done in person at the desk.</div>
+        </details>
+        <details class="faq-item">
+          <summary>What does it actually cost to join?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">Monthly is $29/mo plus a one-time $99 sign-up fee. Annual is $399/yr with no sign-up fee and a free month. There are also couple, family, student &amp; military, and short-term options — plus a $10 day pass. It's all on the <a href="#membership">membership</a> page.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I try it before I join?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">Yes — your first workout is free. <a href="#start">Claim it here</a> and come in. If you want a real run at Boot Camp, the 8-Session Challenge is $99 for first-timers.</div>
+        </details>
+        <details class="faq-item">
+          <summary>What are your hours?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">Monday–Friday 5:00 AM–1:00 PM and 4:00 PM–8:00 PM; Saturday–Sunday 7:00 AM–1:00 PM. The 1:00–4:00 PM weekday window is reserved for VIP members.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Do you offer personal training?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">Yes. One-on-one with Chris — a 3-session starter is $139, ten sessions is $390. Danny Martinez also runs Power Precision Training in the building for powerlifting, boxing, and conditioning. Both are one-on-one.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Where are you, and is there parking?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">108 First Street in downtown Batavia, right by the river. <a href="https://maps.google.com/?q=108+First+Street+Batavia+IL+60510" target="_blank" rel="noopener">Get directions →</a></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
   <!-- ── FIND US ──────────────────────────────────────────────────── -->
   <section id="find-us" class="section">
     <div class="container">
@@ -2134,6 +2514,248 @@
           </a>
         </div>
 
+        <div class="find-map fade-in">
+          <iframe
+            src="https://www.google.com/maps?q=108%20First%20Street%20Batavia%20IL%2060510&output=embed"
+            title="Map to River West Family Fitness, 108 First Street, Batavia, IL"
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COACH DANNY / POWER PRECISION ───────────────────────────── -->
+  <section id="coach-danny" class="section">
+    <div class="container">
+      <p class="section-label text-center">Also In The Building</p>
+      <h2 class="section-title text-center">A second coach.<br>A different fight.</h2>
+      <div class="start-grid" style="margin-top:clamp(1.5rem,4vw,2.5rem)">
+        <div class="start-copy fade-in">
+          <img class="ppt-logo" src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_360/riverwest/web/ppt-logo.png" alt="Power Precision Training logo" width="150" height="162" loading="lazy">
+          <h3 style="font-family:var(--ff-display);font-weight:400;font-size:clamp(2.1rem,5vw,3rem);color:#fff;line-height:1;margin-bottom:.3rem">Coach Danny Martinez</h3>
+          <p class="program-tag">Power Precision Training · One-on-One</p>
+          <p>Danny runs <strong>Power Precision Training</strong> out of River West — 23 years of coaching behind it. Powerlifting, boxing, HIIT, conditioning: sometimes one discipline, sometimes a cocktail of everything, always custom-built around the person in front of him.</p>
+          <p>The premise is simple — build power in the body and the mind at the same time. Get strong, get conditioned, and build a mindset that doesn't crack under pressure. Nutrition is part of the plan, because nothing works without it.</p>
+          <p class="program-pull">"Mentally fit to physically dominate."</p>
+        </div>
+
+        <div class="start-form-card fade-in">
+          <p class="form-eyebrow">Train with Danny</p>
+          <h3 style="margin-bottom:1rem">Power Precision.</h3>
+          <p style="color:rgba(229,229,229,.72);font-size:.95rem;margin-bottom:1.2rem">Powerlifting · Boxing &amp; Kickboxing · MMA Fitness · HIIT · Strength &amp; Conditioning · Competition Prep · Nutrition &amp; Mindset</p>
+          <div class="barber-facts" style="margin-top:0">
+            <div class="barber-fact"><span class="bf-label">Recognition</span><span class="bf-val" style="font-size:.95rem">Best of the Fox 2024 · Best PT in Kane County 2024</span></div>
+          </div>
+          <div class="barber-facts">
+            <div class="barber-fact"><span class="bf-label">Book Danny</span><span class="bf-val"><a href="tel:6303283516">630.328.3516</a></span></div>
+            <div class="barber-fact"><span class="bf-label">Follow</span><span class="bf-val"><a href="https://www.instagram.com/powerprecisiontraining/" target="_blank" rel="noopener">@powerprecisiontraining</a></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ppt-gallery fade-in">
+        <figure class="ppt-shot">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_700/riverwest/web/ppt-powerlifting.jpg" alt="Powerlifting training with Coach Danny" loading="lazy">
+          <figcaption>Powerlifting</figcaption>
+        </figure>
+        <figure class="ppt-shot">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_700/riverwest/web/ppt-boxing.jpg" alt="Boxing training with Coach Danny" loading="lazy">
+          <figcaption>Boxing</figcaption>
+        </figure>
+        <figure class="ppt-shot">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_700/riverwest/web/ppt-program.jpg" alt="Custom-built training programs" loading="lazy">
+          <figcaption>Custom Programs</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BARBER & BARBELL ────────────────────────────────────────── -->
+  <section id="barber">
+    <div class="container">
+      <div class="barber-grid">
+        <div class="barber-content fade-in">
+          <svg class="barber-badge" viewBox="0 0 240 240" role="img" aria-label="The Barber Shop, Batavia Illinois">
+            <defs>
+              <clipPath id="bbPole"><rect x="110" y="82" width="20" height="76" rx="10"/></clipPath>
+              <path id="bbArcTop" d="M34 120 A86 86 0 0 1 206 120" fill="none"/>
+              <path id="bbArcBot" d="M42 120 A78 78 0 0 0 198 120" fill="none"/>
+            </defs>
+            <circle class="bb-ring" cx="120" cy="120" r="115" stroke-width="2"/>
+            <circle class="bb-ring" cx="120" cy="120" r="107" stroke-width="1" opacity=".55"/>
+            <text class="bb-text" font-size="15"><textPath href="#bbArcTop" startOffset="50%" text-anchor="middle">THE BARBER SHOP</textPath></text>
+            <text class="bb-text" font-size="10.5"><textPath href="#bbArcBot" startOffset="50%" text-anchor="middle">BATAVIA · ILLINOIS</textPath></text>
+            <path class="bb-metal" d="M31 120 l4.5 -5 4.5 5 -4.5 5 z"/>
+            <path class="bb-metal" d="M200 120 l4.5 -5 4.5 5 -4.5 5 z"/>
+            <circle class="bb-metal" cx="120" cy="70" r="4"/>
+            <rect class="bb-metal" x="105" y="73" width="30" height="8" rx="3"/>
+            <rect class="bb-metal" x="105" y="159" width="30" height="8" rx="3"/>
+            <circle class="bb-metal" cx="120" cy="170" r="4"/>
+            <rect class="bb-pole-body" x="110" y="82" width="20" height="76" rx="10"/>
+            <g clip-path="url(#bbPole)">
+              <g transform="rotate(32 120 120)">
+                <rect class="bb-stripe" x="82" y="58" width="7" height="124"/>
+                <rect class="bb-stripe" x="98" y="58" width="7" height="124"/>
+                <rect class="bb-stripe" x="114" y="58" width="7" height="124"/>
+                <rect class="bb-stripe" x="130" y="58" width="7" height="124"/>
+                <rect class="bb-stripe" x="146" y="58" width="7" height="124"/>
+              </g>
+            </g>
+            <rect class="bb-outline" x="110" y="82" width="20" height="76" rx="10" stroke-width="1.5"/>
+          </svg>
+          <p class="section-label">On Your Left When You Walk In</p>
+          <h2>Barber &amp; Barbell.</h2>
+          <p>Inside the same building, The Barber Shop keeps it old-school. Steve Frantz — a registered master barber — runs it the way it used to be done: scissor cuts and beard trims, no rush.</p>
+          <p>It's the kind of place that's disappearing from the world. Fair prices, real craft, a guy who takes pride in the work. Same values as the gym next door.</p>
+          <p class="barber-pull">"Old school, good quality. This kind of place is disappearing."</p>
+          <p style="color:rgba(229,229,229,.72);font-size:.95rem">Walk-ins welcome — it's a one-chair shop, so calling ahead is smart.</p>
+          <div class="barber-facts">
+            <div class="barber-fact"><span class="bf-label">Hours</span><span class="bf-val" style="font-size:.98rem">Tue–Fri 9–5 · Sat 8–12</span></div>
+            <div class="barber-fact"><span class="bf-label">Rating</span><span class="bf-val" style="font-size:.98rem">★ 5.0 on Google</span></div>
+            <div class="barber-fact"><span class="bf-label">Appointments</span><span class="bf-val"><a href="tel:6308791769">630.879.1769</a></span></div>
+          </div>
+        </div>
+
+        <div class="barber-media fade-in">
+          <video class="barber-video" autoplay loop muted playsinline preload="metadata"
+            poster="https://res.cloudinary.com/dsbllwpbh/video/upload/so_2,f_auto,q_auto,w_900/riverwest/web/barber-shop-loop.jpg">
+            <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/f_auto,q_auto,w_900/riverwest/web/barber-shop-loop.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- Google reviews carousel -->
+      <div class="barber-reviews fade-in">
+        <div class="brv-head">
+          <div class="brv-title">
+            <svg class="brv-g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+            <div>
+              <h3>Google Reviews</h3>
+              <span class="brv-sub">The Barber Shop · Batavia, IL</span>
+            </div>
+          </div>
+          <div class="brv-score">
+            <span class="brv-num">5.0</span>
+            <span class="brv-stars" aria-label="Rated 5.0 out of 5">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+          </div>
+          <div class="brv-nav">
+            <button type="button" data-brv-prev aria-label="Previous reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button type="button" data-brv-next aria-label="More reviews"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+
+        <div class="brv-track" id="brvTrack" tabindex="0" aria-label="Customer reviews, scrollable">
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">R</span>
+              <div class="brv-who"><div class="brv-name">Ron G</div><div class="brv-meta">Local Guide · 331 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">"Old school" barber — excellent job, fair price, and a guy who takes pride in what he does and takes an interest in you. This kind of business is disappearing from our world. Check it out!</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">A</span>
+              <div class="brv-who"><div class="brv-name">Adam Gibbons</div><div class="brv-meta">Local Guide · 99 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">If you're looking for an old-school, good-quality barber, this is the place to go. Steve does an excellent job and is a pleasure to chat with while he works. Call ahead for an appointment — I've gone several times and plan to keep coming back!</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">J</span>
+              <div class="brv-who"><div class="brv-name">John Hummel</div><div class="brv-meta">5 reviews · 1 photo</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">Hidden gem barber in Batavia. Reasonable prices, and you can tell Steve really cares about the quality of the cut. I'll be back for sure.</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">A</span>
+              <div class="brv-who"><div class="brv-name">Atort Photography</div><div class="brv-meta">Local Guide · 71 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">Called last minute and Steve was able to get me in — really did a nice job. I'm particular and nervous with a first-time cut at a new place, and he was relaxed, kind, and professional. An affordable, quality option in the area. New customer!</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">S</span>
+              <div class="brv-who"><div class="brv-name">Steve Dobbs</div><div class="brv-meta">Local Guide · 16 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">Steve is the best. Excellent haircut, and just a truly great guy. I went to a few other barbers over the past month without a good experience, then I found Steve. So glad I did.</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">D</span>
+              <div class="brv-who"><div class="brv-name">Danny Abalos</div><div class="brv-meta">Local Guide · 172 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">Great old-school barber shop! Steve did a great job on my first time here. I'll be back. Highly recommend.</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">C</span>
+              <div class="brv-who"><div class="brv-name">Charles Firth</div><div class="brv-meta">Local Guide · 14 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">Steve is old school and I like that. Great haircut, and a convenient location in Batavia as well.</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">K</span>
+              <div class="brv-who"><div class="brv-name">Kyle Russ</div><div class="brv-meta">Local Guide · 42 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">A great old-school barbershop. Steve does an excellent job and is a great guy to talk with.</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">E</span>
+              <div class="brv-who"><div class="brv-name">Ej Rodriguez</div><div class="brv-meta">Local Guide · 36 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">When you come here you feel like part of the family. They're very cool and do a great job. You pay for what you get — try them out.</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+          <article class="brv-card">
+            <div class="brv-card-top">
+              <span class="brv-avatar">C</span>
+              <div class="brv-who"><div class="brv-name">Curt Baffes</div><div class="brv-meta">Local Guide · 32 reviews</div></div>
+            </div>
+            <span class="brv-cardstars" aria-label="5 stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span>
+            <p class="brv-body">Always a solid haircut, with a side of good conversation. A real barber, doing it the right way.</p>
+            <div class="brv-foot"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg><span>Posted on Google</span></div>
+          </article>
+
+        </div>
+
+        <p class="brv-cta"><a href="https://www.google.com/maps/search/?api=1&amp;query=The+Barber+Shop+108+First+Street+Batavia+IL" target="_blank" rel="noopener">Read all reviews on Google →</a></p>
       </div>
     </div>
   </section>
@@ -2145,6 +2767,17 @@
         <img src="logos/riverwest-wordmark-white.svg" alt="River West Family Fitness">
       </div>
       <p class="footer-address">108 First Street · Batavia, IL 60510 · 630.879.8889</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/RiverWestFamilyFitness" target="_blank" rel="noopener" aria-label="River West on Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/riverwestfit/" target="_blank" rel="noopener" aria-label="River West on Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@riverwest18" target="_blank" rel="noopener" aria-label="River West on TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3a5.6 5.6 0 0 0 4.5 4.9v3a8.6 8.6 0 0 1-4.5-1.3v6.1a6.1 6.1 0 1 1-6.1-6.1c.3 0 .6 0 .9.06v3.1a3 3 0 1 0 2.1 2.86V3h3.1z"/></svg>
+        </a>
+      </div>
       <p class="footer-copy">© 2026 River West Family Fitness. All rights reserved.</p>
     </div>
   </footer>
@@ -2266,21 +2899,152 @@
             if (v !== video) { v.pause(); v.closest('.video-card').querySelector('.video-play').classList.remove('playing'); }
           });
           video.muted = false;
-          video.play();
           btn.classList.add('playing');
-          btn.innerHTML = '&#9646;&#9646;';
+          btn.setAttribute('aria-label', 'Pause');
+          // play() returns a promise that rejects if interrupted (pause) or the
+          // source stalls — swallow it and reset the UI instead of throwing.
+          const p = video.play();
+          if (p && p.catch) {
+            p.catch(() => { btn.classList.remove('playing'); btn.setAttribute('aria-label', 'Play'); });
+          }
         } else {
           video.pause();
           btn.classList.remove('playing');
-          btn.innerHTML = '&#9654;';
+          btn.setAttribute('aria-label', 'Play');
         }
       });
 
       video.addEventListener('pause', () => {
         btn.classList.remove('playing');
-        btn.innerHTML = '&#9654;';
+        btn.setAttribute('aria-label', 'Play');
       });
     });
+
+    // Video strip: prev/next arrow scrolling (deterministic tween, no scroll-snap)
+    (function () {
+      var wrap = document.querySelector('.video-scroll-wrap');
+      if (!wrap) return;
+      var prev = document.querySelector('[data-vid-prev]');
+      var next = document.querySelector('[data-vid-next]');
+      var raf = 0, goal = null;
+      function sync() {
+        var max = wrap.scrollWidth - wrap.clientWidth - 2;
+        if (prev) prev.disabled = wrap.scrollLeft <= 2;
+        if (next) next.disabled = wrap.scrollLeft >= max;
+      }
+      function tween(target) {
+        var max = wrap.scrollWidth - wrap.clientWidth;
+        target = Math.max(0, Math.min(target, max)); goal = target;
+        var start = wrap.scrollLeft, dist = target - start, t0 = 0, dur = 340;
+        if (raf) cancelAnimationFrame(raf);
+        function frame(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min(1, (ts - t0) / dur);
+          wrap.scrollLeft = start + dist * (1 - Math.pow(1 - p, 3));
+          if (p < 1) { raf = requestAnimationFrame(frame); } else { raf = 0; goal = null; sync(); }
+        }
+        raf = requestAnimationFrame(frame);
+      }
+      function nudge(dir) {
+        var base = goal == null ? wrap.scrollLeft : goal;
+        tween(base + dir * wrap.clientWidth * 0.8);
+      }
+      if (next) next.addEventListener('click', function () { nudge(1); });
+      if (prev) prev.addEventListener('click', function () { nudge(-1); });
+      wrap.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      ['wheel', 'touchstart', 'pointerdown'].forEach(function (ev) {
+        wrap.addEventListener(ev, function () { if (!raf) goal = null; }, { passive: true });
+      });
+      sync();
+    })();
+  </script>
+
+  <!-- Free-workout lead form → Netlify Forms (AJAX with inline success) -->
+  <script>
+    (function () {
+      var form = document.getElementById('freeWorkoutForm');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('.ff-submit');
+        var fine = form.querySelector('.ff-fine');
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+        var body = new URLSearchParams(new FormData(form)).toString();
+        fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
+          .then(function (res) {
+            if (!res.ok) throw new Error('bad response');
+            form.style.display = 'none';
+            var ok = document.getElementById('fwSuccess');
+            if (ok) ok.classList.add('is-visible');
+          })
+          .catch(function () {
+            if (btn) { btn.disabled = false; btn.textContent = 'Claim My Free Workout'; }
+            if (fine) { fine.textContent = 'Something went wrong — please call 630.879.8889 or try again.'; fine.style.color = '#e0685f'; }
+          });
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var track = document.getElementById('brvTrack');
+      if (!track) return;
+      var prev = document.querySelector('[data-brv-prev]');
+      var next = document.querySelector('[data-brv-next]');
+      function step() {
+        var card = track.querySelector('.brv-card');
+        var gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 20;
+        return card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.8;
+      }
+      // Manual tween: write scrollLeft directly each frame. Native smooth-scroll +
+      // CSS scroll-snap livelock and reset to origin in Chromium on this layout, so
+      // we animate ourselves and land on card boundaries deterministically.
+      var raf = 0, goal = null;
+      function tweenTo(target) {
+        var max = track.scrollWidth - track.clientWidth;
+        target = Math.max(0, Math.min(target, max));
+        goal = target;
+        var startL = track.scrollLeft, dist = target - startL, dur = 360, t0 = 0;
+        if (raf) cancelAnimationFrame(raf);
+        function frame(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min(1, (ts - t0) / dur);
+          var e = 1 - Math.pow(1 - p, 3);
+          track.scrollLeft = startL + dist * e;
+          if (p < 1) { raf = requestAnimationFrame(frame); } else { raf = 0; goal = null; syncNav(); }
+        }
+        raf = requestAnimationFrame(frame);
+      }
+      function nudge(dir) {
+        var s = step();
+        var max = track.scrollWidth - track.clientWidth;
+        // accumulate from the pending goal so rapid clicks add up instead of resetting
+        var base = goal == null ? track.scrollLeft : goal;
+        var raw = base + dir * s;
+        var target = raw >= max ? max : (raw <= 0 ? 0 : Math.round(raw / s) * s);
+        tweenTo(target);
+      }
+      if (next) next.addEventListener('click', function () { nudge(1); });
+      if (prev) prev.addEventListener('click', function () { nudge(-1); });
+      // a user-driven scroll (touch/wheel/drag) cancels any queued button goal
+      ['wheel', 'touchstart', 'pointerdown'].forEach(function (ev) {
+        track.addEventListener(ev, function () { if (!raf) goal = null; }, { passive: true });
+      });
+      function syncNav() {
+        if (!prev || !next) return;
+        var max = track.scrollWidth - track.clientWidth - 2;
+        prev.style.opacity = track.scrollLeft <= 2 ? '.4' : '1';
+        next.style.opacity = track.scrollLeft >= max ? '.4' : '1';
+      }
+      track.addEventListener('scroll', syncNav, { passive: true });
+      window.addEventListener('resize', syncNav);
+      // browsers restore a nested scroller's position on reload/back — start on the first review
+      function toStart() { track.scrollLeft = 0; syncNav(); }
+      toStart();
+      window.addEventListener('load', toStart);
+      syncNav();
+    })();
   </script>
 
   <script src="admin.js" defer></script>

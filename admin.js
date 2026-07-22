@@ -8,7 +8,9 @@
     { href: 'index.html', label: 'Home', tag: 'Public' },
     { href: 'college-break.html', label: 'College Break Landing', tag: 'Public' },
     { href: 'college-break-email.html', label: 'Email Template', tag: 'Internal' },
-    { href: 'college-break-flyer.html', label: 'Print Flyer', tag: 'Internal' }
+    { href: 'college-break-flyer.html', label: 'Print Flyer', tag: 'Internal' },
+    { href: 'site-plan.html', label: 'Rebuild & Competitive Plan', tag: 'Internal' },
+    { href: 'merch.html', label: 'Club 5AM Merch & Store Plan', tag: 'Internal' }
   ];
 
   const root = document.documentElement;
