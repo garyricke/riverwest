@@ -7,7 +7,7 @@
   <meta name="description" content="River West Family Fitness. 108 First Street, Batavia, IL. The only gym in the Tri-Cities where the owner has coached for 20+ years and knows every member by name. Gym membership, boot camp, and personal training.">
   <meta property="og:title" content="River West Family Fitness">
   <meta property="og:description" content="Batavia's real gym. No pressure. No gimmicks. Just real work.">
-  <meta property="og:image" content="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-tire-flip-building-hero-wide">
+  <meta property="og:image" content="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1200/riverwest/web/rw-tire-flip-building-hero-wide">
   <link rel="icon" type="image/svg+xml" href="logos/riverwest-icon-square-black.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1002,7 +1002,12 @@
     .video-arrow-prev { left: clamp(0.4rem, 2vw, 1.4rem); }
     .video-arrow-next { right: clamp(0.4rem, 2vw, 1.4rem); }
     .video-arrow[disabled] { opacity: 0; pointer-events: none; }
-    @media (max-width: 640px) { .video-arrow { display: none; } }
+    @media (max-width: 640px) {
+      .video-arrow { display: none; }
+      /* one dominant card + a peek of the next = clear "swipe for more" cue */
+      .video-card { width: 76vw; max-width: 320px; scroll-snap-align: start; }
+      .video-scroll-wrap { scroll-snap-type: x mandatory; scroll-padding-left: 1.25rem; }
+    }
     .video-caption {
       font-family: var(--ff-head);
       font-size: 0.68rem;
@@ -1040,7 +1045,9 @@
       pointer-events: none;
       background-size: cover;
       background-position: center;
+      background-image: var(--rc-bg-lg);
     }
+    @media (max-width: 640px) { .rc-slide { background-image: var(--rc-bg-sm); } }
     .rc-slide::before {
       content: '';
       position: absolute;
@@ -1077,9 +1084,9 @@
       margin-bottom: 1.5rem;
     }
     .rc-text {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-size: clamp(1.5rem, 3.4vw, 2.25rem);
       line-height: 1.2;
-      color: rgba(255,255,255,0.55);
+      color: #fff;
       font-weight: 900;
       margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
       font-style: normal;
@@ -1350,10 +1357,12 @@
       .about-inner { grid-template-columns: 1fr; }
       .story-image { order: -1; }
       .story-image img { height: 360px; }
-      .about-image { display: none; }
+      .about-image { max-width: 300px; margin: 0 auto; order: -1; }
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar-image img { height: 240px; }
       .program { grid-template-columns: 1fr; }
+      .program.portrait-grid { grid-template-columns: 1fr; }
+      .program.portrait-grid .program-image { max-width: 300px; margin: 0 auto; }
       .program-reverse { direction: ltr; }
       .program-image img { height: 300px; }
       .reviews-grid { grid-template-columns: 1fr; }
@@ -1459,6 +1468,32 @@
       transition:background .18s;
     }
     .ff-submit:hover { background:#fff; }
+
+    /* ── Student Special / College Break Pass ── */
+    #student-special { border-top:1px solid rgba(255,255,255,.06); }
+    .ss-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+    @media (max-width:860px){ .ss-grid { grid-template-columns:1fr; } }
+    .ss-media { position:relative; display:block; border-radius:14px; overflow:hidden;
+      border:1px solid rgba(255,255,255,.08); box-shadow:0 24px 60px rgba(0,0,0,.5); }
+    .ss-media img { width:100%; height:100%; object-fit:cover; aspect-ratio:4/5; transition:transform .5s ease; }
+    .ss-media:hover img { transform:scale(1.04); }
+    .ss-badge { position:absolute; top:1rem; left:1rem; background:var(--gold); color:var(--iron);
+      font-family:var(--ff-head); font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase;
+      padding:.5rem .8rem; border-radius:5px; }
+    .ss-title { font-family:var(--ff-display); font-size:clamp(2.4rem,5vw,3.8rem); line-height:1;
+      color:#fff; margin:.2rem 0 1.2rem; letter-spacing:.01em; }
+    .ss-title em { font-style:normal; color:var(--gold); }
+    .ss-lede { color:rgba(229,229,229,.78); margin-bottom:1.4rem; max-width:46ch; }
+    .ss-points { list-style:none; margin:0 0 1.9rem; padding:0; display:flex; flex-direction:column; gap:.75rem; }
+    .ss-points li { position:relative; padding-left:1.7rem; color:rgba(229,229,229,.9); font-size:.98rem; }
+    .ss-points li::before { content:""; position:absolute; left:0; top:.45em; width:8px; height:8px;
+      border-radius:50%; background:var(--gold); }
+    .ss-cta-row { display:flex; align-items:center; gap:clamp(1rem,3vw,2rem); flex-wrap:wrap; }
+    .ss-price { font-family:var(--ff-display); font-size:clamp(2.6rem,5vw,3.4rem); color:#fff; line-height:1; }
+    .ss-price sup { font-size:.5em; vertical-align:super; color:var(--gold); margin-right:.05em; }
+    .ss-price em { font-style:normal; font-family:var(--ff-head); font-size:.85rem; font-weight:700;
+      letter-spacing:.08em; color:rgba(229,229,229,.5); text-transform:uppercase; margin-left:.2rem; }
+    .ss-btn { width:auto; margin-top:0; padding:1rem 1.6rem; display:inline-block; text-align:center; }
     .ff-fine { font-size:12px; color:rgba(229,229,229,.4); margin-top:.9rem; line-height:1.5; }
     .ff-honey { position:absolute; left:-9999px; }
     .ff-success { display:none; text-align:center; padding:1rem 0; }
@@ -1612,7 +1647,7 @@
   <!-- ── HERO ──────────────────────────────────────────────────── -->
   <section id="hero">
     <video class="hero-video" autoplay muted loop playsinline
-      poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-tire-flip-building-hero-wide">
+      poster="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1200/riverwest/web/rw-tire-flip-building-hero-wide">
       <source src="https://res.cloudinary.com/dsbllwpbh/video/upload/q_auto/riverwest/web/vid-798009582.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
@@ -1665,7 +1700,7 @@
         <p class="story-pull">"This is your new job. It's never ending — and that's the point."</p>
       </div>
       <div class="story-image fade-in">
-        <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-rw-logo-stone-wall-brand-shot"
+        <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1200/riverwest/web/rw-rw-logo-stone-wall-brand-shot" srcset="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_600/riverwest/web/rw-rw-logo-stone-wall-brand-shot 600w, https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1200/riverwest/web/rw-rw-logo-stone-wall-brand-shot 1200w" sizes="(max-width: 900px) 100vw, 50vw"
              alt="River West logo on original stone wall inside the gym" loading="lazy">
       </div>
     </div>
@@ -1680,7 +1715,7 @@
 
         <div class="pillar fade-in">
           <div class="pillar-image">
-            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-barbell-rack-forest-of-bars"
+            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1000/riverwest/web/rw-barbell-rack-forest-of-bars" srcset="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_500/riverwest/web/rw-barbell-rack-forest-of-bars 500w, https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1000/riverwest/web/rw-barbell-rack-forest-of-bars 1000w" sizes="(max-width: 900px) 100vw, 33vw"
                  alt="Forest of barbells at River West" loading="lazy">
           </div>
           <div class="pillar-content">
@@ -1691,7 +1726,7 @@
 
         <div class="pillar fade-in">
           <div class="pillar-image">
-            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-cardio-floor-hardwood-long"
+            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1000/riverwest/web/rw-cardio-floor-hardwood-long" srcset="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_500/riverwest/web/rw-cardio-floor-hardwood-long 500w, https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1000/riverwest/web/rw-cardio-floor-hardwood-long 1000w" sizes="(max-width: 900px) 100vw, 33vw"
                  alt="Long cardio floor at River West on original hardwood" loading="lazy">
           </div>
           <div class="pillar-content">
@@ -1702,7 +1737,7 @@
 
         <div class="pillar fade-in">
           <div class="pillar-image">
-            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-rw-logo-wide-floor-members"
+            <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1000/riverwest/web/rw-rw-logo-wide-floor-members" srcset="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_500/riverwest/web/rw-rw-logo-wide-floor-members 500w, https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1000/riverwest/web/rw-rw-logo-wide-floor-members 1000w" sizes="(max-width: 900px) 100vw, 33vw"
                  alt="Members training on the River West main floor" loading="lazy">
           </div>
           <div class="pillar-content">
@@ -1724,7 +1759,7 @@
       <!-- THE GYM -->
       <div class="program fade-in">
         <div class="program-image">
-          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/web/rw-equipment-depth-wide-stone-ceiling"
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1200/riverwest/web/rw-equipment-depth-wide-stone-ceiling" srcset="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_600/riverwest/web/rw-equipment-depth-wide-stone-ceiling 600w, https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1200/riverwest/web/rw-equipment-depth-wide-stone-ceiling 1200w" sizes="(max-width: 900px) 100vw, 50vw"
                alt="River West gym floor — equipment depth under stone ceiling" loading="lazy">
         </div>
         <div class="program-content">
@@ -1995,6 +2030,32 @@
     </div>
   </section>
 
+  <!-- ── STUDENT SPECIAL / COLLEGE BREAK PASS ─────────────────────── -->
+  <section id="student-special" class="section">
+    <div class="container">
+      <div class="ss-grid">
+        <a class="ss-media fade-in" href="college-break.html" aria-label="See the College Break Pass">
+          <img src="https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_900/riverwest/student-promo/rw-student-break-hero" alt="A student training on the gym floor at River West" width="900" height="600" loading="lazy">
+          <span class="ss-badge">Student Special</span>
+        </a>
+        <div class="ss-copy fade-in">
+          <p class="section-label">For College Students · 2026</p>
+          <h2 class="ss-title">Home for break?<br><em>The gym never left.</em></h2>
+          <p class="ss-lede">A discounted year-round membership built for students who go away to school — for the weeks you're actually home. One payment covers every break, all year. No monthly draft, no contract to cancel.</p>
+          <ul class="ss-points">
+            <li>Full gym floor, full hours — same as any member</li>
+            <li>Pay once, walk in whenever you're back in town</li>
+            <li>Just show proof of enrollment</li>
+          </ul>
+          <div class="ss-cta-row">
+            <span class="ss-price"><sup>$</sup>229<em>a year</em></span>
+            <a href="college-break.html" class="ff-submit ss-btn">See the College Break Pass →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── VIDEOS ──────────────────────────────────────────────────── -->
   <section id="videos" class="section section-dark-alt">
     <div class="container">
@@ -2098,7 +2159,7 @@
     <div class="reviews-carousel" id="reviewsCarousel">
       <div class="rc-track" id="rcTrack">
 
-        <div class="rc-slide active" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-barbell-rack.jpg')">
+        <div class="rc-slide active" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-barbell-rack.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-barbell-rack.jpg')">
           <div class="rc-slide-inner">
             <p class="section-label text-center" style="color:rgba(255,255,255,0.55);margin-bottom:clamp(1rem,2vw,1.5rem)">05 — What Members Say</p>
             <div class="rc-quote-mark">&ldquo;</div>
@@ -2109,7 +2170,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-overhead-flag.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-overhead-flag.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-overhead-flag.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2119,7 +2180,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-building-exterior.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-building-exterior.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-building-exterior.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2129,7 +2190,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-jacobs-ladder.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-jacobs-ladder.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-jacobs-ladder.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2139,7 +2200,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-gym-scene.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-gym-scene.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-gym-scene.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2149,7 +2210,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-flag-mezzanine.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-flag-mezzanine.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-flag-mezzanine.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2159,7 +2220,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-tires-exterior.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-tires-exterior.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-tires-exterior.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2169,7 +2230,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-01.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-01.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-01.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2179,7 +2240,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-02.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-02.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-02.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2189,7 +2250,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-03.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-03.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-03.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2199,7 +2260,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-04.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-04.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-04.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2209,7 +2270,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-05.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-05.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-05.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2219,7 +2280,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-06.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-06.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-06.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2229,7 +2290,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-07.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-07.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-07.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2239,7 +2300,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-08.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-08.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-08.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2249,7 +2310,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-09.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-09.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-09.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2259,7 +2320,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-10.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-10.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-10.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2269,7 +2330,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-11.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-11.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-11.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2279,7 +2340,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-12.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-12.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-12.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
@@ -2289,7 +2350,7 @@
           </div>
         </div>
 
-        <div class="rc-slide" style="background-image:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto/riverwest/testimonials/rw-testimonial-13.jpg')">
+        <div class="rc-slide" style="--rc-bg-lg:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_1600/riverwest/testimonials/rw-testimonial-13.jpg');--rc-bg-sm:url('https://res.cloudinary.com/dsbllwpbh/image/upload/f_auto,q_auto,w_800/riverwest/testimonials/rw-testimonial-13.jpg')">
           <div class="rc-slide-inner">
             <div class="rc-quote-mark">&ldquo;</div>
             <div class="rc-stars">★★★★★</div>
